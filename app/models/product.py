@@ -12,8 +12,9 @@ class Product(db.Model):
   id = db.Column(db.Integer, primary_key=True)
   product_name = db.Column(db.String(200), nullable=False)
   description = db.Column(db.String(300), nullable=False)
-  price = db.Column(db.Numeric, nullable=False)
+  price = db.Column(db.Float, nullable=False)
   vendor_id = db.Column(db.Integer, db.ForeignKey(User.id), nullable=False)
+  in_stock = db.Column(db.Boolean, default=True)
   created_at = db.Column(db.DateTime, default=datetime.now)
   updated_at = db.Column(db.DateTime, default=datetime.now, onupdate=datetime.now)
 
@@ -28,6 +29,7 @@ class Product(db.Model):
             'description': self.description,
             'price': self.price,
             'vendor_id': self.vendor_id,
+            'in_stock': self.in_stock,
             'created_at': self.created_at,
             'updated_at': self.updated_at
         }
