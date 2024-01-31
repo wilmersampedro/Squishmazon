@@ -39,6 +39,17 @@ export const thunkFetchOneProduct = (productId) => dispatch => {
   .catch(console.error)
 }
 
+export const thunkCreateProduct = body => dispatch => {
+  csrfFetch(`/api/products/new`, {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify(body)
+  })
+  .then(r => r.json())
+  .then(d => dispatch(receiveProduct(d)))
+  .catch(console.error)
+}
+
 export const thunkEditProduct = (productId, body, callback ) => dispatch => {
   csrfFetch(`api/products/${productId}`, {
     method: "PUT",

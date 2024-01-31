@@ -6,12 +6,12 @@ import "./EditProductModal.css";
 
 function EditProductModal({ product }) {
   const dispatch = useDispatch();
-  const { closeModal } = useModal()
-  const [productName, setProductName] = useState(product.product_name)
-  const [description, setDescription] = useState(product.description)
-  const [price, setPrice] = useState(product.price)
-  const [inStock, setInStock] = useState(product.in_stock)
-  const [errors, setErrors] = useState({})
+  const { closeModal } = useModal();
+  const [productName, setProductName] = useState(product.product_name);
+  const [description, setDescription] = useState(product.description);
+  const [price, setPrice] = useState(product.price);
+  const [inStock, setInStock] = useState(product.in_stock);
+  const [errors, setErrors] = useState({});
 
 
   const handleSubmit = e => {

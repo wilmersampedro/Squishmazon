@@ -5,6 +5,7 @@ import OpenModalMenuItem from "./OpenModalMenuItem";
 import LoginFormModal from "../LoginFormModal";
 import SignupFormModal from "../SignupFormModal";
 import { NavLink } from "react-router-dom";
+import CreateProductModal from "../CreateProductModal/CreateProductModal";
 
 function ProfileButton() {
   const dispatch = useDispatch();
@@ -56,7 +57,7 @@ function ProfileButton() {
               <OpenModalMenuItem
               itemText="Create new 'mallow"
               onItemClick={closeMenu}
-              modalComponent={<></>}
+              modalComponent={<CreateProductModal />}
               />
               <li>
                 <button onClick={logout}>Log Out</button>
