@@ -40,7 +40,7 @@ with app.app_context():
     #     db.session.add(pkmn)
 
     # user = User.query.get(1)
-    prod = Product.query.get(3)
+    prod = Product.query.get(1)
     # db.session.delete(user)
     db.session.delete(prod)
     # db.session.delete(User.query.get(1))
