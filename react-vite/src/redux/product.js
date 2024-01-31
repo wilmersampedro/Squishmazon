@@ -13,8 +13,20 @@ const receiveProduct = product => ({
   product
 })
 
+const removeProduct = productId => ({
+  type: REMOVE_PRODUCT,
+  productId
+})
+
 export const thunkFetchProducts = () => dispatch => {
   csrfFetch(`/api/products`)
+  .then(r => r.json())
+  .then(d => dispatch(loadProducts(d.products)))
+  .catch(console.error)
+}
+
+export const thunkFetchMyProducts = () => dispatch => {
+  csrfFetch(`/api/products/current`)
   .then(r => r.json())
   .then(d => dispatch(loadProducts(d.products)))
   .catch(console.error)
@@ -27,9 +39,29 @@ export const thunkFetchOneProduct = (productId) => dispatch => {
   .catch(console.error)
 }
 
+export const thunkEditProduct = (productId, body, callback ) => dispatch => {
+  csrfFetch(`api/products/${productId}`, {
+    method: "PUT",
+    body: JSON.stringify(body)
+  })
+  .then(r => r.json())
+  .then(d => {
+    dispatch(receiveProduct(d));
+    callback(true, d)
+  })
+  .catch(e => {
+    console.error(e)
+    e.json()
+    .then(j => callback(false, j))
+  })
+}
 
-
-
+export const thunkDeleteProduct = productId => dispatch => {
+  csrfFetch(`/api/products/${productId}`, {method: "DELETE"})
+  .then(r => r.json())
+  .then(() => dispatch(removeProduct(productId)))
+  .catch(console.error)
+}
 
 const productReducer = (state = { product: {} }, action) => {
   switch (action.type) {

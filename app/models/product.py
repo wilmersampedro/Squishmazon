@@ -10,8 +10,8 @@ class Product(db.Model):
         __table_args__ = {'schema': SCHEMA}
 
   id = db.Column(db.Integer, primary_key=True)
-  product_name = db.Column(db.String(200), nullable=False)
-  description = db.Column(db.String(300), nullable=False)
+  product_name = db.Column(db.String(128), nullable=False)
+  description = db.Column(db.String(350), nullable=False)
   price = db.Column(db.Float, nullable=False)
   vendor_id = db.Column(db.Integer, db.ForeignKey(User.id), nullable=False)
   in_stock = db.Column(db.Boolean, default=True)
