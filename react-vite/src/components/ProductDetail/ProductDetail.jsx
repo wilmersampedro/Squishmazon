@@ -16,8 +16,11 @@ function ProductDetail() {
 
   useEffect(() => {
     dispatch(thunkFetchReviews(productId))
-    dispatch(thunkFetchOneProduct(productId))
   }, [dispatch, productId])
+
+  useEffect(() => {
+    dispatch(thunkFetchOneProduct(productId))
+  },[dispatch])
 
   if (!product) return null
 
@@ -40,11 +43,11 @@ function ProductDetail() {
             {reviewsToDisplay.map(r => <div
             key={r.id}
             >
-              {r.user_id == user.id && <div>test</div> }
-              <div>{r.author["first_name"]} {r.author["last_name"]}</div>
-              <div>{r.stars} stars</div>
-              <div>Reviewed on: {r.created_at}</div>
-              <div>{r.review_text}</div>
+              {r?.user_id == user?.id && <div>test</div> }
+              <div>{r?.author["first_name"]} {r?.author["last_name"]}</div>
+              <div>{r?.stars} stars</div>
+              <div>Reviewed on: {r?.created_at}</div>
+              <div>{r?.review_text}</div>
             </div>)}
           </div> :
           <div>
