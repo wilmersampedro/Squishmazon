@@ -1,0 +1,15 @@
+#stars-container {
+  display: flex;
+  font-size: 30px;
+}
+.filled {
+  color: gold
+}
+
+.filled:hover{
+  cursor: pointer;
+}
+
+.empty {
+  color: black
+}

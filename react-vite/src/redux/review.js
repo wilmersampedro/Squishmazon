@@ -56,7 +56,7 @@ export const thunkEditReview = (reviewId, body, callback) => dispatch => {
 export const thunkDeleteReview = reviewId => dispatch => {
   csrfFetch(`/api/reviews/${reviewId}`, {method: "DELETE"})
   .then(r => r.json())
-  .then(() => dispatch(removeProduct(reviewId)))
+  .then(() => dispatch(removeReview(reviewId)))
   .catch(console.error)
 }
 
