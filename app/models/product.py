@@ -30,6 +30,7 @@ class Product(db.Model):
             'price': self.price,
             'vendor_id': self.vendor_id,
             'in_stock': self.in_stock,
+            "product_images": [img.to_dict() for img in self.product_image],
             'created_at': self.created_at,
             'updated_at': self.updated_at
         }

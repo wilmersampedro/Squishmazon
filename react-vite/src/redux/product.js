@@ -39,15 +39,34 @@ export const thunkFetchOneProduct = (productId) => dispatch => {
   .catch(console.error)
 }
 
-export const thunkCreateProduct = body => dispatch => {
-  csrfFetch(`/api/products/new`, {
-    method: "POST",
-    headers: {"Content-Type": "application/json"},
-    body: JSON.stringify(body)
-  })
-  .then(r => r.json())
-  .then(d => dispatch(receiveProduct(d)))
-  .catch(console.error)
+export const thunkCreateProduct = (body) => async (dispatch) => {
+  try {
+    const res = await csrfFetch(`/api/products/new`, {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify(body)
+    })
+
+    if (res.ok) {
+      const newProduct = await res.json()
+      return newProduct;
+    }
+  } catch (error) {
+    const errors = error.json();
+    return errors;
+  }
+
+  // csrfFetch(`/api/products/new`, {
+  //   method: "POST",
+  //   headers: {"Content-Type": "application/json"},
+  //   body: JSON.stringify(body)
+  // })
+  // .then(r => r.json())
+  // .then(d => {
+  //   dispatch(receiveProduct(d));
+  //   return d
+  // })
+  // .catch(console.error)
 }
 
 export const thunkEditProduct = (productId, body, callback ) => dispatch => {
@@ -73,6 +92,44 @@ export const thunkDeleteProduct = productId => dispatch => {
   .then(() => dispatch(removeProduct(productId)))
   .catch(console.error)
 }
+
+export const thunkCreateImage = (newProduct, post) => async (dispatch) => {
+  const response = await csrfFetch(`/api/products/${newProduct.id}/images`, {
+      method: "POST",
+      body: post
+    });
+
+
+  if (response.ok) {
+    console.log("IN THE OK BLOCK")
+      const { resPost } = await response.json();
+      dispatch(addPost(resPost));
+  } else {
+      const error = await response.json()
+      console.log("ERROR IN THUNK???????: ",error)
+      console.log("There was an error making your post!")
+  }
+  // try {
+  //   console.log("*** IN THUNK: ", newProduct.id)
+  // const res = await csrfFetch(`/api/products/${newProduct.id}/images`, {
+  //   method: "POST",
+  //   body: post
+  // });
+
+  // console.log("RES IN IMAGE THUNK: ", res)
+
+  // if (res.ok) {
+  //   const { resPost } = await res.json();
+  //   console.log("OK???: ", resPost)
+  //   dispatch(receiveProduct(newProduct))
+  // }
+  // } catch (error) {
+  //   const err = error.json()
+  //   console.log(err)
+  //   return err
+  // }
+}
+
 
 const productReducer = (state = { product: {} }, action) => {
   switch (action.type) {

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
-import { thunkCreateProduct } from "../../redux/product";
+import { thunkCreateImage, thunkCreateProduct } from "../../redux/product";
 import './CreateProductModal.css'
 
 function CreateProductModal() {
@@ -10,15 +10,28 @@ function CreateProductModal() {
   const [productName, setProductName] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState(0);
+  const [image, setImage] = useState(null);
+  const [imageLoading, setImageLoading] = useState(false);
   const [errors, setErrors] = useState({});
 
 
-  const handleSubmit = e => {
-    e.preventDefault()
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     const errs = {}
     if(productName > 128) errs.productName = "Name must be less than 128 character"
     if(description > 350) errs.description = "Description must be less than 350 character"
-    if (Object.keys(errs).length) return setErrors(errs)
+
+    if(!image) {
+      errs.image = "At least one image is required to create new `mallow"
+      setErrors(errs)
+      return errors
+    }
+
+    if (Object.keys(errs).length) {
+      setErrors(errs)
+      return errors
+    }
+
 
     const body = {
       product_name: productName,
@@ -26,14 +39,41 @@ function CreateProductModal() {
       price,
     }
 
-    dispatch(thunkCreateProduct(body));
-    closeModal()
+    const newProduct = await dispatch(thunkCreateProduct(body));
+    if(newProduct.errors) {
+      setErrors({...newProduct.errors, ...errors})
+      return errors
+    } else {
+
+
+      // closeModal()
+
+
+      const formData = new FormData();
+      formData.append("image", image);
+      console.log("*** IN COMPONENT: ", formData)
+      // aws uploads can be a bit slow-displaying
+      // some sort of loading message is a good idea
+      setImageLoading(true);
+      const newImg = await dispatch(thunkCreateImage(newProduct, formData));
+      console.log("new image response? : ", newImg)
+      return errors
+      // history.push("/images");
+    }
   }
 
   return (
     <>
+    {Object.values(errors).length ? Object.values(errors).map((e) => <div>{e}</div>) : <div>no errors</div>}
     <div id="createModalTitle">Create your 'mallow</div>
-      <form onSubmit={handleSubmit} >
+      <form onSubmit={handleSubmit} encType="multipart/form-data">
+        <div>
+        <input
+              type="file"
+              accept="image/*"
+              onChange={(e) => setImage(e.target.files[0])}
+            />
+        </div>
         <div>
           <label htmlFor="productName">
             Name
@@ -72,7 +112,8 @@ function CreateProductModal() {
         </div>
         <div>
           <div onClick={closeModal}>Cancel</div>
-          <input type="submit"/>
+          <button type="submit">Submit</button>
+          {(imageLoading)&& <p>Loading...</p>}
         </div>
       </form>
     </>
