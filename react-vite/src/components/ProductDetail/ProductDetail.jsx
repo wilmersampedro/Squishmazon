@@ -14,6 +14,7 @@ function ProductDetail() {
   const reviews = useSelector((state) => state.review)
   const user = useSelector((state) => state.session.user)
 
+
   useEffect(() => {
     dispatch(thunkFetchReviews(productId))
   }, [dispatch, productId])
@@ -22,7 +23,7 @@ function ProductDetail() {
     dispatch(thunkFetchOneProduct(productId))
   },[dispatch])
 
-  if (!product) return null
+  if (!product || reviews.review) return null
 
   return (
     <>
