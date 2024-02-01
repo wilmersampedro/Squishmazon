@@ -1,7 +1,7 @@
 from flask import Blueprint, request
-from app.models import Product, db
+from app.models import Product, Review, db
 from flask_login import current_user, login_required
-from app.forms import ProductForm
+from app.forms import ProductForm, ReviewForm
 
 product_routes = Blueprint('products', __name__)
 
@@ -40,7 +40,6 @@ def create_product():
   form = ProductForm()
   form['csrf_token'].data = request.cookies['csrf_token']
   if form.validate_on_submit():
-    print(form.data)
     new_product = Product(
       product_name = form.data["product_name"],
       description = form.data["description"],
@@ -97,3 +96,49 @@ def delete_product(id):
     return {"message": "Successfully deleted"}
   else:
     return {'errors': {'message': 'Unauthorized'}}, 401
+
+
+#GET ALL REVIEWS FOR PRODUCT BY ID
+@product_routes.route("/<int:id>/reviews")
+def product_reviews(id):
+  product = Product.query.get(id)
+  if not product:
+    return {"errors": {"message": "Product couldn't be found"}}, 404
+
+  all_reviews = Review.query.filter(Review.product_id == id).all()
+  return {"reviews": [review.to_dict() for review in all_reviews]}
+
+
+#CREATE REVIEW FOR A PRODUCT BASED ON PRODUCT ID
+@product_routes.route("/<int:id>/reviews", methods=["POST"])
+@login_required
+def create_review(id):
+  product = Product.query.get(id)
+  if not product:
+    return {"errors": {"message": "Product couldn't be found"}}, 404
+
+  if product.vendor_id == current_user.id:
+    return {"errors": {"message": "User cannot review their own product"}}, 400
+
+  potensh_reviews = Review.query.filter(Review.user_id == current_user.id).all()
+  for rev in potensh_reviews:
+    if rev.product_id == id:
+      return {"errors": {"message": "User already has a review for this product"}}, 401
+  # if potensh_review:
+  #   return {"errors": {"message": "User already has a review for this product"}}, 401
+
+  form = ReviewForm()
+  form['csrf_token'].data = request.cookies['csrf_token']
+  if form.validate_on_submit():
+    new_review = Review(
+      product_id = id,
+      user_id = current_user.id,
+      review_text = form.data["review_text"],
+      stars = form.data["stars"]
+    )
+
+    db.session.add(new_review)
+    db.session.commit()
+    return new_review.to_dict(), 201
+  else:
+    return form.errors, 400
