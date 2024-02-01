@@ -11,19 +11,19 @@ const loadReviews = reviews => ({
 const receiveReview = review => ({
   type: RECEIVE_REVIEW,
   review
-})
+});
 
 const removeReview = reviewId => ({
   type: REMOVE_REVIEW,
   reviewId
-})
+});
 
 export const thunkFetchReviews = (productId) => dispatch => {
   csrfFetch(`/api/products/${productId}/reviews`)
   .then(r => r.json())
   .then(d => dispatch(loadReviews(d.reviews)))
   .catch(console.error)
-}
+};
 
 export const thunkCreateReview = (productId, body) => dispatch => {
   csrfFetch(`/api/products/${productId}/reviews`, {
