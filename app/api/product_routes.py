@@ -1,7 +1,10 @@
 from flask import Blueprint, request
-from app.models import Product, Review, db
+from app.models import Product, Review, ProductImage, db
 from flask_login import current_user, login_required
-from app.forms import ProductForm, ReviewForm
+from app.forms import ProductForm, ReviewForm, ImageForm
+from app.api.aws import (
+  upload_file_to_s3, get_unique_filename, remove_file_from_s3
+)
 
 product_routes = Blueprint('products', __name__)
 
@@ -93,6 +96,9 @@ def delete_product(id):
   if current_user.id == product.vendor_id:
     db.session.delete(product)
     db.session.commit()
+    if(product.product_image[0].url):
+      [remove_file_from_s3(img.url) for img in product.product_image]
+      # remove_file_from_s3(product.product_image[0].url)
     return {"message": "Successfully deleted"}
   else:
     return {'errors': {'message': 'Unauthorized'}}, 401
@@ -141,4 +147,38 @@ def create_review(id):
     db.session.commit()
     return new_review.to_dict(), 201
   else:
+    return form.errors, 400
+
+
+#Upload image for product based on product id
+@product_routes.route("/<int:id>/images", methods=["POST"])
+@login_required
+def upload_img(id):
+  newly_created_prod = Product.query.get(id)
+  print("DOES THIS EXIST?????", newly_created_prod.to_dict())
+  print("IN THE BACKEND??????")
+  form = ImageForm()
+  form['csrf_token'].data = request.cookies['csrf_token']
+  if form.validate_on_submit():
+    print("VALID??????")
+    image = form.data["image"]
+    image.filename = get_unique_filename(image.filename)
+    upload = upload_file_to_s3(image)
+    print(upload)
+
+    if "url" not in upload:
+    # if the dictionary doesn't have a url key
+    # it means that there was an error when we tried to upload
+    # so we send back that error message (and we printed it above)
+      print("URL NOT IN UPLOAD???????")
+      return {"errors": upload}
+
+    url = upload["url"]
+    new_image = ProductImage(url = url, product_id = id)
+    db.session.add(new_image)
+    db.session.commit()
+    return {"message": "Successfully uploaded image"}
+  else:
+    print("HITTING THE LAST ELSE??")
+    print("FORM ERRORS IN BACKEND",form.errors)
     return form.errors, 400
