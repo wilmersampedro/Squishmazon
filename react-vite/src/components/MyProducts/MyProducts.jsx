@@ -14,10 +14,13 @@ function MyProducts() {
   const navigate = useNavigate()
   const sessionUser = useSelector((state) => state.session.user)
   const products = useSelector((state) => state.product)
+  const prodArr = Object.values(products)
 
   useEffect(() => {
     dispatch(thunkFetchMyProducts())
   }, [dispatch])
+
+  if(!prodArr[prodArr.length - 1].product_images) return null
 
   return (
     <>
@@ -40,7 +43,7 @@ function MyProducts() {
                 <div>
 
                 <div className="tileImageContainer">
-              <img src={p.product_images[0].url} alt="tileImage" className="tileImage"/>
+              <img src={p.product_images[0]?.url} alt="tileImage" className="tileImage"/>
             </div>
                 <div>{p.price}</div>
                 <div>{p.product_name}</div>
