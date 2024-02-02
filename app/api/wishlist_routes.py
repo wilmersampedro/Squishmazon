@@ -1,7 +1,6 @@
 from flask import Blueprint, request
-from app.models import Wishlist, Product, User, db
+from app.models import Wishlist, User, db
 from flask_login import current_user, login_required
-from app.forms import ProductForm, ReviewForm, ImageForm
 
 
 wishlist_routes = Blueprint('wishlists', __name__)
@@ -18,13 +17,18 @@ def my_wishlist():
 
 
 
-@wishlist_routes.route("/<int:user_id>")
+@wishlist_routes.route("/user/<int:user_id>")
 @login_required
 def view_other_wishlist(user_id):
   """
   Get all items in wishlist belonging to a user by user id **** MIGHT IMPLEMENT LATER
   """
-  pass
+  user = User.query.get(user_id)
+  if not user:
+    return {"errors": {"message": "User couldn't be found"}}, 404
+
+  wishlist_items = Wishlist.query.filter(Wishlist.user_id == user.id).all()
+  return {"wishlist_items": [item.to_dict() for item in wishlist_items]}
 
 
 @wishlist_routes.route("/<int:id>", methods=["DELETE"])
