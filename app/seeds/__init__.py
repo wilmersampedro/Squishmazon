@@ -4,7 +4,10 @@ from .products import seed_products, undo_products
 from .reviews import seed_reviews, undo_reviews
 from .product_images import seed_product_images, undo_product_images
 from .wishlists import seed_wishlists, undo_wishlists
-
+from .categories import seed_categories, undo_categories
+from .cart_items import seed_cart_items, undo_cart_items
+from .orders import seed_orders, undo_orders
+from .order_items import seed_order_items, undo_order_items
 
 from app.models.db import db, environment, SCHEMA
 
@@ -26,13 +29,20 @@ def seed():
         undo_reviews()
         undo_product_images()
         undo_wishlists()
+        undo_categories()
+        undo_cart_items()
+        undo_orders()
+        undo_order_items()
     # Add other seed functions here
     seed_users()
     seed_products()
     seed_reviews()
     seed_product_images()
     seed_wishlists()
-
+    seed_categories()
+    seed_cart_items()
+    seed_orders()
+    seed_order_items()
 # Creates the `flask seed undo` command
 @seed_commands.command('undo')
 def undo():
@@ -42,3 +52,7 @@ def undo():
     undo_reviews()
     undo_product_images()
     undo_wishlists()
+    undo_categories()
+    undo_cart_items()
+    undo_orders()
+    undo_order_items()
