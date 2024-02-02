@@ -16,6 +16,7 @@ class Wishlist(db.Model):
   updated_at = db.Column(db.DateTime, default=datetime.now, onupdate=datetime.now)
 
   wishlist_owner = db.relationship('User', back_populates='wishlist')
+#   wishlist_products = db.relationship('Product', back_populates='')
 
   def to_dict(self):
         return {
