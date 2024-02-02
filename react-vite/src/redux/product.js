@@ -94,7 +94,7 @@ export const thunkDeleteProduct = productId => dispatch => {
 }
 
 export const thunkCreateImage = (newProduct, post) => async (dispatch) => {
-  const response = await csrfFetch(`/api/products/${newProduct.id}/images`, {
+  const response = await fetch(`/api/products/${newProduct.id}/images`, {
       method: "POST",
       body: post
     });
@@ -103,31 +103,12 @@ export const thunkCreateImage = (newProduct, post) => async (dispatch) => {
   if (response.ok) {
     console.log("IN THE OK BLOCK")
       const { resPost } = await response.json();
-      dispatch(addPost(resPost));
+      dispatch(receiveProduct(newProduct));
   } else {
       const error = await response.json()
       console.log("ERROR IN THUNK???????: ",error)
       console.log("There was an error making your post!")
   }
-  // try {
-  //   console.log("*** IN THUNK: ", newProduct.id)
-  // const res = await csrfFetch(`/api/products/${newProduct.id}/images`, {
-  //   method: "POST",
-  //   body: post
-  // });
-
-  // console.log("RES IN IMAGE THUNK: ", res)
-
-  // if (res.ok) {
-  //   const { resPost } = await res.json();
-  //   console.log("OK???: ", resPost)
-  //   dispatch(receiveProduct(newProduct))
-  // }
-  // } catch (error) {
-  //   const err = error.json()
-  //   console.log(err)
-  //   return err
-  // }
 }
 
 

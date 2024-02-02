@@ -3,7 +3,7 @@ from app.models import Product, Review, ProductImage, db
 from flask_login import current_user, login_required
 from app.forms import ProductForm, ReviewForm, ImageForm
 from app.api.aws import (
-  upload_file_to_s3, get_unique_filename
+  upload_file_to_s3, get_unique_filename, remove_file_from_s3
 )
 
 product_routes = Blueprint('products', __name__)
@@ -96,6 +96,9 @@ def delete_product(id):
   if current_user.id == product.vendor_id:
     db.session.delete(product)
     db.session.commit()
+    if(product.product_image[0].url):
+      [remove_file_from_s3(img.url) for img in product.product_image]
+      # remove_file_from_s3(product.product_image[0].url)
     return {"message": "Successfully deleted"}
   else:
     return {'errors': {'message': 'Unauthorized'}}, 401
@@ -155,7 +158,7 @@ def upload_img(id):
   print("DOES THIS EXIST?????", newly_created_prod.to_dict())
   print("IN THE BACKEND??????")
   form = ImageForm()
-  # form['csrf_token'].data = request.cookies['csrf_token']
+  form['csrf_token'].data = request.cookies['csrf_token']
   if form.validate_on_submit():
     print("VALID??????")
     image = form.data["image"]

@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
-import { thunkCreateImage, thunkCreateProduct } from "../../redux/product";
+import { thunkCreateImage, thunkCreateProduct, thunkFetchOneProduct } from "../../redux/product";
 import './CreateProductModal.css'
+import { useNavigate } from "react-router-dom";
 
 function CreateProductModal() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { closeModal } = useModal();
   const [productName, setProductName] = useState("");
   const [description, setDescription] = useState("");
@@ -57,8 +59,10 @@ function CreateProductModal() {
       setImageLoading(true);
       const newImg = await dispatch(thunkCreateImage(newProduct, formData));
       console.log("new image response? : ", newImg)
-      return errors
       // history.push("/images");
+      closeModal()
+      dispatch(thunkFetchOneProduct(newProduct.id)) //this makes it so that the page doesn't break when making new prod?
+      navigate(`/product/${newProduct.id}`)
     }
   }
 

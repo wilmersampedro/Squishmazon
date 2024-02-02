@@ -37,9 +37,15 @@ function MyProducts() {
                   navigate(`/product/${p.id}`)
                 }}
               >
+                <div>
+
+                <div className="tileImageContainer">
+              <img src={p.product_images[0].url} alt="tileImage" className="tileImage"/>
+            </div>
                 <div>{p.price}</div>
                 <div>{p.product_name}</div>
                 {p.in_stock ? <div>In Stock!</div> : <div>Out of Stock!</div>}
+                </div>
               </div>
               <div>
                 <OpenModalButton
