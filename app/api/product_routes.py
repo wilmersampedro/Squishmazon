@@ -1,5 +1,5 @@
 from flask import Blueprint, request
-from app.models import Product, Review, ProductImage, db
+from app.models import Product, Review, ProductImage, Wishlist, db
 from flask_login import current_user, login_required
 from app.forms import ProductForm, ReviewForm, ImageForm
 from app.api.aws import (
@@ -182,3 +182,33 @@ def upload_img(id):
     print("HITTING THE LAST ELSE??")
     print("FORM ERRORS IN BACKEND",form.errors)
     return form.errors, 400
+
+
+@product_routes.route("/<int:id>/wishlists", methods=["POST"])
+@login_required
+def add_to_wishlist(id):
+  """
+  Creates a new wishlist item for user based on product id
+  """
+  product_to_add = Product.query.get(id)
+  if not product_to_add:
+    return {"errors": {"message": "Product couldn't be found"}}, 404
+
+  ## Maybe comment out to add functionality where user cannot wishlist their own product :thinking:?
+  if product_to_add.vendor_id == current_user.id:
+    return {"errors": {"message": "User cannot wishlist their own product"}}, 400
+
+  curr_user_wishlist = Wishlist.query.filter(Wishlist.user_id == current_user.id).all()
+  for wishlist_item in curr_user_wishlist:
+    if wishlist_item.product_id == product_to_add.id:
+      return {"errors": {"message": "User already added this product to their wishlist"}}, 401
+
+  new_wishlist_item = Wishlist(
+    product_id = id,
+    user_id = current_user.id
+  )
+
+  db.session.add(new_wishlist_item)
+  db.session.commit()
+  return new_wishlist_item.to_dict(), 201
+  
