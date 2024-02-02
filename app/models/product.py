@@ -21,8 +21,8 @@ class Product(db.Model):
   vendor = db.relationship('User', back_populates='product')
   product_review = db.relationship('Review', back_populates='review_product', cascade='all, delete-orphan')
   product_image = db.relationship('ProductImage', back_populates='image_product', cascade='all, delete-orphan')
-  product_wishlist = db.relationship('Wishlist', back_populates='wishlist_products')
-  
+  product_wishlist = db.relationship('Wishlist', back_populates='wishlist_products', cascade='all, delete-orphan')
+
   def to_dict(self):
         return {
             'id': self.id,

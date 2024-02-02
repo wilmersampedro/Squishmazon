@@ -7,8 +7,12 @@ def seed_wishlists():
         user_id = 1
     ))
     db.session.add(Wishlist(
-        product_id = 2,
-        user_id = 1
+        product_id = 3,
+        user_id = 2
+    ))
+    db.session.add(Wishlist(
+        product_id = 1,
+        user_id = 3
     ))
     db.session.commit()
 

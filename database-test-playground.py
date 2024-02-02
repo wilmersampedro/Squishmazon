@@ -6,7 +6,7 @@ load_dotenv()
 # so that the environment variables are
 # properly loaded.
 from app import app, db
-from app.models import User, Product
+from app.models import User, Product, Wishlist, Review, ProductImage
 
 with app.app_context():
     # db.drop_all()
@@ -40,7 +40,8 @@ with app.app_context():
     #     db.session.add(pkmn)
 
     # user = User.query.get(1)
-    prod = Product.query.get(1)
+    prod = Product.query.get(3)
+    # db.session.add(Wishlist(user_id=1, product_id=3))
     # db.session.delete(user)
     db.session.delete(prod)
     # db.session.delete(User.query.get(1))
