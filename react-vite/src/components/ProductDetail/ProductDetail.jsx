@@ -27,7 +27,6 @@ function ProductDetail() {
     dispatch(thunkFetchOneProduct(productId))
   }, [dispatch, productId])
 
-  if (!product || reviews.review || !product.product_images[0].url) return null
 
   const existingReviewCheck = (userId) => {
     for(let review of Object.values(reviews)) {
@@ -36,11 +35,12 @@ function ProductDetail() {
     return false;
   }
 
+  if (!product || reviews.review || !product.product_images[0]?.url) return null
   return (
     <>
       <div>
         <div>
-          <img src={product.product_images[0]?.url} alt="" />
+          <img src={product?.product_images[0]?.url} alt="" />
         </div>
         <div>{product?.product_name}</div>
         <div>{product?.price}</div>
