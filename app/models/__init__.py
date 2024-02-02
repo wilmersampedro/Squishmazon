@@ -6,3 +6,4 @@ from .product import Product
 from .review import Review
 from .product_image import ProductImage
 from .wishlist import Wishlist
+from .category import Category
