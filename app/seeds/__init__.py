@@ -3,7 +3,7 @@ from .users import seed_users, undo_users
 from .products import seed_products, undo_products
 from .reviews import seed_reviews, undo_reviews
 from .product_images import seed_product_images, undo_product_images
-from .wishlists import seed_wishlists, undo_wishlists
+# from .wishlists import seed_wishlists, undo_wishlists
 from .categories import seed_categories, undo_categories
 from .cart_items import seed_cart_items, undo_cart_items
 from .orders import seed_orders, undo_orders
@@ -28,7 +28,7 @@ def seed():
         undo_products()
         undo_reviews()
         undo_product_images()
-        undo_wishlists()
+        # undo_wishlists()
         undo_categories()
         undo_cart_items()
         undo_orders()
@@ -38,7 +38,7 @@ def seed():
     seed_products()
     seed_reviews()
     seed_product_images()
-    seed_wishlists()
+    # seed_wishlists()
     seed_categories()
     seed_cart_items()
     seed_orders()
@@ -51,7 +51,7 @@ def undo():
     undo_products()
     undo_reviews()
     undo_product_images()
-    undo_wishlists()
+    # undo_wishlists()
     undo_categories()
     undo_cart_items()
     undo_orders()

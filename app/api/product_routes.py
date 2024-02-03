@@ -198,17 +198,29 @@ def add_to_wishlist(id):
   if product_to_add.vendor_id == current_user.id:
     return {"errors": {"message": "User cannot wishlist their own product"}}, 400
 
-  curr_user_wishlist = Wishlist.query.filter(Wishlist.user_id == current_user.id).all()
-  for wishlist_item in curr_user_wishlist:
-    if wishlist_item.product_id == product_to_add.id:
-      return {"errors": {"message": "User already added this product to their wishlist"}}, 401
+  if product_to_add in current_user.wishlist:
+    return {"errors": {"message": "User already added this product to their wishlist"}}, 401
 
-  new_wishlist_item = Wishlist(
-    product_id = id,
-    user_id = current_user.id
-  )
-
-  db.session.add(new_wishlist_item)
+  current_user.wishlist.append(product_to_add)
   db.session.commit()
-  return new_wishlist_item.to_dict(), 201
-  
+  return product_to_add.to_dict(), 201
+
+
+@product_routes.route("/<int:id>/wishlists", methods=["DELETE"])
+@login_required
+def delete_wishlist(id):
+  """
+  Delete wishlist item based on the id of the wishlist
+  """
+  product = Product.query.get(id)
+  if not product:
+    return {"errors": {"message": "Product couldn't be found"}}, 404
+
+  if product not in current_user.wishlist:
+    return {"errors": {"message": "User does not have product in their wishlist"}}, 404
+
+  current_user.wishlist.remove(product)
+  db.session.commit()
+
+  return {"message": "Successfully removed item from wishlist"}, 202
+
