@@ -1,7 +1,7 @@
 from flask import Blueprint, request
-from app.models import Product, Review, ProductImage, Wishlist, db
+from app.models import Product, Review, ProductImage, CartItem, db
 from flask_login import current_user, login_required
-from app.forms import ProductForm, ReviewForm, ImageForm
+from app.forms import ProductForm, ReviewForm, ImageForm, CartItemForm
 from app.api.aws import (
   upload_file_to_s3, get_unique_filename, remove_file_from_s3
 )
@@ -83,7 +83,7 @@ def modify_product(id):
     else:
       return {'errors': {'message': 'Unauthorized'}}, 401
   else:
-    return form.errors, 401
+    return form.errors, 400
 
 #DELETE PRODUCT
 @product_routes.route("/<int:id>", methods=["DELETE"])
@@ -130,8 +130,6 @@ def create_review(id):
   for rev in potensh_reviews:
     if rev.product_id == id:
       return {"errors": {"message": "User already has a review for this product"}}, 401
-  # if potensh_review:
-  #   return {"errors": {"message": "User already has a review for this product"}}, 401
 
   form = ReviewForm()
   form['csrf_token'].data = request.cookies['csrf_token']
@@ -210,7 +208,7 @@ def add_to_wishlist(id):
 @login_required
 def delete_wishlist(id):
   """
-  Delete wishlist item based on the id of the wishlist
+  Delete wishlist item based on the product id
   """
   product = Product.query.get(id)
   if not product:
@@ -224,3 +222,33 @@ def delete_wishlist(id):
 
   return {"message": "Successfully removed item from wishlist"}, 202
 
+
+@product_routes.route("/<int:id>/cart", methods=["POST"])
+@login_required
+def add_item_to_cart(id):
+  """
+  CREATE: Adds an item to cart, if item already exists it will increase quantity by one
+  """
+  product = Product.query.get(id)
+  if not product:
+    return {"errors": {"message": "Product couldn't be found"}}, 404
+
+  form = CartItemForm()
+  form['csrf_token'].data = request.cookies['csrf_token']
+  if form.validate_on_submit():
+    for item in current_user.user_cart:
+      if item.product_id == product.id:
+        item.quantity = item.quantity + 1
+        db.session.commit()
+        return item.to_dict(), 200
+      else:
+        cart_item = CartItem(
+          user_id = current_user.id,
+          product_id = product.id,
+          quantity = form.data["quantity"] if "quantity" in form.data else 1
+        )
+        db.session.add(cart_item)
+        db.session.commit()
+        return cart_item.to_dict(), 201
+  else:
+    return form.errors, 401
