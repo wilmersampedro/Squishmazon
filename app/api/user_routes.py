@@ -29,7 +29,7 @@ def user(id):
 @login_required
 def view_other_wishlist(id):
     """
-    Get all items in wishlist belonging to a user by user id 
+    Get all items in wishlist belonging to a user by user id
     """
     user = User.query.get(id)
     if not user:

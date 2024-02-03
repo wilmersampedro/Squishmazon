@@ -83,7 +83,7 @@ def modify_product(id):
     else:
       return {'errors': {'message': 'Unauthorized'}}, 401
   else:
-    return form.errors, 401
+    return form.errors, 400
 
 #DELETE PRODUCT
 @product_routes.route("/<int:id>", methods=["DELETE"])
@@ -130,8 +130,6 @@ def create_review(id):
   for rev in potensh_reviews:
     if rev.product_id == id:
       return {"errors": {"message": "User already has a review for this product"}}, 401
-  # if potensh_review:
-  #   return {"errors": {"message": "User already has a review for this product"}}, 401
 
   form = ReviewForm()
   form['csrf_token'].data = request.cookies['csrf_token']
@@ -210,7 +208,7 @@ def add_to_wishlist(id):
 @login_required
 def delete_wishlist(id):
   """
-  Delete wishlist item based on the id of the wishlist
+  Delete wishlist item based on the product id
   """
   product = Product.query.get(id)
   if not product:
@@ -229,7 +227,7 @@ def delete_wishlist(id):
 @login_required
 def add_item_to_cart(id):
   """
-  Adds an item to cart, if item already exists it will increase quantity by one
+  CREATE: Adds an item to cart, if item already exists it will increase quantity by one
   """
   product = Product.query.get(id)
   if not product:
