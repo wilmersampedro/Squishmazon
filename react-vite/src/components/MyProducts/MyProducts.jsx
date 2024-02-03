@@ -20,7 +20,7 @@ function MyProducts() {
     dispatch(thunkFetchMyProducts())
   }, [dispatch])
 
-  if(!prodArr[prodArr.length - 1].product_images) return null
+  if (!prodArr[prodArr.length - 1].product_images) return null
 
   return (
     <>
@@ -42,12 +42,12 @@ function MyProducts() {
               >
                 <div>
 
-                <div className="tileImageContainer">
-              <img src={p.product_images[0]?.url} alt="tileImage" className="tileImage"/>
-            </div>
-                <div>{p.price}</div>
-                <div>{p.product_name}</div>
-                {p.in_stock ? <div>In Stock!</div> : <div>Out of Stock!</div>}
+                  <div className="tileImageContainer">
+                    <img src={p.product_images[0]?.url} alt="tileImage" className="tileImage" />
+                  </div>
+                  <div>{p.price}</div>
+                  <div>{p.product_name}</div>
+                  {p.in_stock ? <div>In Stock!</div> : <div>Out of Stock!</div>}
                 </div>
               </div>
               <div>

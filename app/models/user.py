@@ -20,7 +20,7 @@ class User(db.Model, UserMixin):
 
     product = db.relationship('Product', back_populates='vendor', cascade='all, delete-orphan')
     review = db.relationship('Review', back_populates='author', cascade='all, delete-orphan')
-    wishlist = db.relationship('Wishlist', back_populates='wishlist_owner', cascade='all, delete-orphan')
+    wishlist = db.relationship('Product', secondary=add_prefix_for_prod('wishlists'), back_populates='product_wishlist')
     user_cart =db.relationship('CartItem', back_populates='cart_owner', cascade='all, delete-orphan')
     user_order = db.relationship('Order', back_populates='order_owner', cascade='all, delete-orphan')
 
