@@ -33,7 +33,7 @@ function Products() {
           >
             <div>
             <div className="tileImageContainer">
-              <img src={p.product_images[0].url} alt="tileImage" className="tileImage"/>
+              <img src={p.product_images[0]?.url} alt="tileImage" className="tileImage"/>
             </div>
             <div>{p.price}</div>
             <div>{p.product_name}</div>

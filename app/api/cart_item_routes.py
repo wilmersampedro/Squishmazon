@@ -9,12 +9,16 @@ cart_item_routes = Blueprint('cart_items', __name__)
 @cart_item_routes.route("/<int:id>", methods=["DELETE"])
 @login_required
 def remove_cart_item(id):
+  """
+  Deletes an item from cart
+  """
   cart_item = CartItem.query.get(id)
   if not cart_item:
     return {"errors": {"message": "Cart Item not found"}}
 
   if cart_item.user_id == current_user.id:
-      db.session.remove(cart_item)
+      print("*********", cart_item)
+      db.session.delete(cart_item)
       db.session.commit()
       return {"message": "Successfully deleted"}
   else:
