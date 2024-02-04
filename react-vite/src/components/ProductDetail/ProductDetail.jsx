@@ -9,6 +9,7 @@ import EditReviewModal from "../EditReviewModals";
 import './ProductDetail.css'
 import CreateReviewModal from "../CreateReviewModal/CreateReviewModal";
 import DeleteReviewModal from "../DeleteReviewModal/DeleteReviewModal";
+import { thunkAddWishlistItem } from "../../redux/wishlist";
 
 function ProductDetail() {
   const dispatch = useDispatch()
@@ -46,7 +47,9 @@ function ProductDetail() {
         <div>{product?.price}</div>
         <div>{product?.description}</div>
         <div>{product?.in_stock ? 'In Stock!' : 'Out of Stock'}</div>
-
+        {user.id != product.vendor_id && <button onClick={(e) => {
+          dispatch(thunkAddWishlistItem(product))
+        }}>Add to Wish List</button>}
       </div>
       <br />
       <div>

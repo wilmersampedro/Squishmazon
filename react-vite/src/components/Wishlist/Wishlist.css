@@ -1,0 +1,33 @@
+#wishlistOuterContainer{
+  font-size: 26px;
+  margin: 40px 400px;
+}
+
+.wishlistContainer{
+  font-size: 16px;
+  border: 1px solid black;
+}
+
+.wishlistRow{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.wishlistImageContainer{
+  height: 300px;
+}
+
+.wishlistImage {
+  width: 100%;
+  height: 100%;
+}
+
+.wishlistItemRight{
+  padding: 20px;
+  align-self: center;
+}
+
+.fa-trash-can{
+  font-size: 22px;
+}

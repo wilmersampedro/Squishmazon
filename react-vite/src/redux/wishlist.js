@@ -18,8 +18,18 @@ const removeWishlistProduct = (wishlistProductId) => ({
   wishlistProductId,
 });
 
-export const thunkFetchMyWishlist = () => (dispatch) => {
-  csrfFetch(`/api/wishlists`)
+export const thunkFetchMyWishlist = () => async (dispatch) => {
+  // const response = await csrfFetch("/api/wishlists/")
+
+  // if (response.ok) {
+  //   const res = response.json()
+  //   console.log("IN OK BLOCK THUNK",res)
+  //   return res
+  // } else {
+  //   const error = response.json()
+  //   console.log("error IN THUNK: ", error)
+  // }
+  csrfFetch(`/api/wishlists/`)
     .then((r) => r.json())
     .then((d) => dispatch(loadWishlist(d.wishlist)))
     .catch(console.error);

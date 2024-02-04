@@ -53,11 +53,14 @@ function ProfileButton() {
               <li>{user.email}</li>
               <li>
                 <NavLink to="/my-products" onClick={closeMenu}>Manage my 'mallows</NavLink>
-                </li>
+              </li>
+              <li>
+                <NavLink to="/wishlist" onClick={closeMenu}>Wish List</NavLink>
+              </li>
               <OpenModalMenuItem
-              itemText="Create new 'mallow"
-              onItemClick={closeMenu}
-              modalComponent={<CreateProductModal />}
+                itemText="Create new 'mallow"
+                onItemClick={closeMenu}
+                modalComponent={<CreateProductModal />}
               />
               <li>
                 <button onClick={logout}>Log Out</button>
