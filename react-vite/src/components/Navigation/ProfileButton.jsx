@@ -4,6 +4,8 @@ import { thunkLogout } from "../../redux/session";
 import OpenModalMenuItem from "./OpenModalMenuItem";
 import LoginFormModal from "../LoginFormModal";
 import SignupFormModal from "../SignupFormModal";
+import { NavLink } from "react-router-dom";
+import CreateProductModal from "../CreateProductModal/CreateProductModal";
 
 function ProfileButton() {
   const dispatch = useDispatch();
@@ -47,8 +49,16 @@ function ProfileButton() {
         <ul className={"profile-dropdown"} ref={ulRef}>
           {user ? (
             <>
-              <li>{user.username}</li>
+              <li>Hello, {user.first_name}</li>
               <li>{user.email}</li>
+              <li>
+                <NavLink to="/my-products" onClick={closeMenu}>Manage my 'mallows</NavLink>
+                </li>
+              <OpenModalMenuItem
+              itemText="Create new 'mallow"
+              onItemClick={closeMenu}
+              modalComponent={<CreateProductModal />}
+              />
               <li>
                 <button onClick={logout}>Log Out</button>
               </li>

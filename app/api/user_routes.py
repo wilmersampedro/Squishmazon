@@ -23,3 +23,15 @@ def user(id):
     """
     user = User.query.get(id)
     return user.to_dict()
+
+
+@user_routes.route("/<int:id>/wishlist")
+@login_required
+def view_other_wishlist(id):
+    """
+    Get all items in wishlist belonging to a user by user id
+    """
+    user = User.query.get(id)
+    if not user:
+        return {"error": {"message": "User could not be found"}}
+    return {'wishlist': [product.to_dict() for product in user.wishlist]}

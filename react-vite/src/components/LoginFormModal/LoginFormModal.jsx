@@ -53,6 +53,7 @@ function LoginFormModal() {
         </label>
         {errors.password && <p>{errors.password}</p>}
         <button type="submit">Log In</button>
+        <button onClick={(e) => {dispatch(thunkLogin({email: 'demo@aa.io', password: 'password'})); closeModal(); e.preventDefault()}}>Demo User</button>
       </form>
     </>
   );

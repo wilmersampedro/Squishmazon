@@ -7,6 +7,12 @@ from flask_login import LoginManager
 from .models import db, User
 from .api.user_routes import user_routes
 from .api.auth_routes import auth_routes
+from .api.product_routes import product_routes
+from .api.review_routes import review_routes
+from .api.product_image_routes import product_image_routes
+from .api.wishlist_routes import wishlist_routes
+from .api.cart_item_routes import cart_item_routes
+
 from .seeds import seed_commands
 from .config import Config
 
@@ -28,6 +34,13 @@ app.cli.add_command(seed_commands)
 app.config.from_object(Config)
 app.register_blueprint(user_routes, url_prefix='/api/users')
 app.register_blueprint(auth_routes, url_prefix='/api/auth')
+app.register_blueprint(product_routes, url_prefix='/api/products')
+app.register_blueprint(review_routes, url_prefix='/api/reviews')
+app.register_blueprint(product_image_routes, url_prefix='/api/product-images')
+app.register_blueprint(wishlist_routes, url_prefix='/api/wishlists')
+app.register_blueprint(cart_item_routes, url_prefix='/api/cart-items')
+
+
 db.init_app(app)
 Migrate(app, db)
 
