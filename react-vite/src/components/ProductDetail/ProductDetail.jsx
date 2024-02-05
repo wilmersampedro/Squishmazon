@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useParams } from 'react-router-dom';
@@ -9,7 +9,7 @@ import EditReviewModal from "../EditReviewModals";
 import './ProductDetail.css'
 import CreateReviewModal from "../CreateReviewModal/CreateReviewModal";
 import DeleteReviewModal from "../DeleteReviewModal/DeleteReviewModal";
-import { thunkAddWishlistItem } from "../../redux/wishlist";
+import { thunkAddWishlistItem, thunkFetchMyWishlist } from "../../redux/wishlist";
 
 function ProductDetail() {
   const dispatch = useDispatch()
@@ -19,7 +19,7 @@ function ProductDetail() {
   const reviews = useSelector((state) => state.review)
   const user = useSelector((state) => state.session.user)
 
-
+  console.log("PRODUCT:", product)
   useEffect(() => {
     dispatch(thunkFetchReviews(productId))
   }, [dispatch, productId])
@@ -35,6 +35,33 @@ function ProductDetail() {
     }
     return false;
   }
+
+
+  const productInWishlist = (wishlist) => {
+    console.log("wishlist: ", wishlist)
+    for (let item in wishlist) {
+      console.log("item:", wishlist[item].id, "product", product?.id)
+      if (wishlist[item]?.id == product?.id) {
+        return true
+
+      }
+    }
+    return false;
+    //returns false if item is not in user's with list
+  }
+  const [wishlistButton, setWishlistButton] = useState(productInWishlist(user.wishlist))
+  console.log("FUNCTION RES", wishlistButton)
+
+  useEffect(() => {
+    dispatch(thunkFetchMyWishlist())
+    productInWishlist(user.wishlist)
+  },[dispatch, user.wishlist, productInWishlist])
+
+  const handleWishlistAdd = (e) => {
+    dispatch(thunkAddWishlistItem(product))
+    setWishlistButton(false)
+  }
+
 
   if (!product || reviews.review || !product.product_images[0]?.url) return null
   return (

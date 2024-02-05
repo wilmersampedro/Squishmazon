@@ -43,6 +43,7 @@ class User(db.Model, UserMixin):
             'last_name': self.last_name,
             'email': self.email,
             'address': self.address,
+            'wishlist': [item.to_dict() for item in self.wishlist],
             'created_at': self.created_at,
             'updated_at': self.updated_at
         }
