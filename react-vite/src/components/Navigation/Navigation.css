@@ -1,6 +1,10 @@
 body {
   margin: 0;
 }
+
+:root{
+  --appPurp: #6E3778;
+}
 .profile-dropdown {
   position: absolute;
   background-color: white;
@@ -26,7 +30,7 @@ body {
   margin-top: 20px;
   margin: 0;
   margin-bottom: 20px;
-  background-color: #6E3778;
+  background-color: var(--appPurp);
   color: white;
   padding-top: 1px;
 }
