@@ -18,7 +18,6 @@ function ProductDetail() {
   const reviews = useSelector((state) => state.review)
   const user = useSelector((state) => state.session.user)
 
-
   useEffect(() => {
     dispatch(thunkFetchReviews(productId))
   }, [dispatch, productId])
@@ -29,8 +28,8 @@ function ProductDetail() {
 
 
   const existingReviewCheck = (userId) => {
-    for(let review of Object.values(reviews)) {
-      if(review.user_id == userId) return true;
+    for (let review of Object.values(reviews)) {
+      if (review.user_id == userId) return true;
     }
     return false;
   }
@@ -38,57 +37,66 @@ function ProductDetail() {
   if (!product || reviews.review || !product.product_images[0]?.url) return null
   return (
     <>
-      <div>
+      <div id="productDetailContainer">
         <div>
           <img src={product?.product_images[0]?.url} alt="" />
         </div>
-        <div>{product?.product_name}</div>
-        <div>{product.avg_reviews}</div>
-        <div>{product?.price}</div>
-        <div>{product?.description}</div>
-        <div>{product?.in_stock ? 'In Stock!' : 'Out of Stock'}</div>
-        
+        <div id="productDetailsInner">
+          <div id="productDetailsName">{product?.product_name}</div>
+          <div className={product.avg_reviews == 5 ? "star-5" : product.avg_reviews == 4 ? "star-4" : product.avg_reviews == 3 ? "star-3" : product.avg_reviews == 2 ? "star-2" : product.avg_reviews == 1 ? "star-1" : "star-0"}><span className="numReviews">{product.num_reviews} {product.num_reviews == 1 ? "Review" : "Reviews"}</span> </div>
+          <div id="productDetailsPrice"><span id="productDetailPriceSpan">Price:</span> ${product?.price}</div>
+          <div id="productDetailsInStock">{product?.in_stock && <i class="fa-solid fa-check" style={{ "color": "#33A3FF" }}></i>} {product?.in_stock ? 'In Stock!' : 'Out of Stock'}</div>
+          <div id="productDetailsDescription">{product?.description}</div>
+        </div>
+
       </div>
       <br />
-      <div>
-        {(user && product?.vendor_id !== user.id && existingReviewCheck(user.id) === false) && <OpenModalButton
-        buttonText="Post Your Review"
-        modalComponent={<CreateReviewModal product={product} />}
-        />}
-      </div>
-      <div>
-        {(() => {
-          let reviewsToDisplay = Object.values(reviews)
+      <section id="reviewsSection">
+        <div id="reviewSectionLeft">
+          <div id="reviewSectionStars">
+            <div className={product.avg_reviews == 5 ? "star-5 revSec5" : product.avg_reviews == 4 ? "star-4 revSec4" : product.avg_reviews == 3 ? "star-3 revSec3" : product.avg_reviews == 2 ? "star-2 revSec2" : product.avg_reviews == 1 ? "star-1 revSec1" : "star-0 revSec0"}><span className="revSecAvg">{product.avg_reviews} out of 5</span> </div>
+          </div>
+          <div>
+            {(user && product?.vendor_id !== user.id && existingReviewCheck(user.id) === false) && <OpenModalButton
+              buttonText="Post Your Review"
+              modalComponent={<CreateReviewModal product={product} />}
+            />}
+          </div>
+        </div>
+        <div >
+          {(() => {
+            let reviewsToDisplay = Object.values(reviews)
 
-          return reviewsToDisplay.length ?
-            <div> Reviews:
-              {reviewsToDisplay.map(r => <div
-                key={r.id}
-              >
+            return reviewsToDisplay.length ?
+              <div id="productReviewsSection"><span id="customersSay">Customers say</span>
+                {reviewsToDisplay.map(r => <div
+                  key={r.id}
+                >
 
-                <div>{r?.author["first_name"]} {r?.author["last_name"]}</div>
-                <div>{r?.stars} stars</div>
-                <div>Reviewed on: {r?.created_at}</div>
-                <div>{r?.review_text}</div>
-                {r?.user_id == user?.id && <OpenModalButton
-                  buttonText="Edit"
-                  modalComponent={<EditReviewModal review={r} />}
-                  onClick={(e) => {
-                    e.stopPropagation()
-                  }}
+                  <div>{r?.author["first_name"]} {r?.author["last_name"]}</div>
+                  <div>{r?.stars} stars</div>
+                  <div>Reviewed on: {r?.created_at}</div>
+                  <div>{r?.review_text}</div>
+                  {r?.user_id == user?.id && <OpenModalButton
+                    buttonText="Edit"
+                    modalComponent={<EditReviewModal review={r} />}
+                    onClick={(e) => {
+                      e.stopPropagation()
+                    }}
 
-                />}
-                {r?.user_id == user?.id && <OpenModalButton
-                  buttonText="Delete"
-                  modalComponent={<DeleteReviewModal review={r} />}
-                />}
-              </div>)}
-            </div> :
-            <div>
-              <h2>Be the first to post a review!</h2>
-            </div>
-        })()}
-      </div>
+                  />}
+                  {r?.user_id == user?.id && <OpenModalButton
+                    buttonText="Delete"
+                    modalComponent={<DeleteReviewModal review={r} />}
+                  />}
+                </div>)}
+              </div> :
+              <div>
+                <h2>Be the first to post a review!</h2>
+              </div>
+          })()}
+        </div>
+      </section>
     </>
   )
 }

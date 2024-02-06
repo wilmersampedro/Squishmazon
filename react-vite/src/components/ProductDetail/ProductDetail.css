@@ -1,0 +1,82 @@
+#productDetailContainer {
+  display: flex;
+  margin-left: 140px;
+  margin-right: 140px;
+}
+
+#productDetailsInner{
+  /* display: flex; */
+  /* flex-direction: column; */
+  margin-left: 30px;
+  padding-top: 40px;
+  padding-bottom: 80px;
+  padding-right: 360px;
+
+}
+
+
+#productDetailsName{
+  font-size: 32px;
+  margin: 10px 10px 10px 0px;
+}
+
+#productDetailsPrice{
+  font-size: 18px;
+  margin: 10px 10px 10px 0px;
+}
+
+#productDetailPriceSpan{
+  font-size: 14px;
+}
+
+#productDetailsInStock{
+  margin: 10px 10px 10px 0px;
+}
+
+#productDetailsDescription{
+  margin: 10px 70px 10px 0px;
+  letter-spacing: .5px;
+}
+
+
+/* REVIEWS */
+#reviewsSection{
+  display: grid;
+  grid-template-columns: 600px 1fr;
+  column-gap: 30px;
+  /* justify-content: space-between; */
+  margin-left: 140px;
+  margin-right: 140px;
+
+}
+
+#reviewSectionStars{
+  display: flex;
+  margin-bottom: 10px;
+}
+
+#reviewSectionLeft{
+  border-bottom: 1px solid black;
+  width: 600px;
+}
+
+.revSec4{
+  /* height: 500px; */
+  /* width: 4000px; */
+  position: relative;
+  /* height: 32px; */
+  width: 100px;
+  right: 4px;
+  background-position: 0px -346px;
+}
+
+.revSecAvg{
+  position: relative;
+  left: 100px;
+}
+
+#productReviewsSection{
+  /* font-size: 16px; */
+}
+
+
