@@ -43,10 +43,11 @@ function ProductDetail() {
           <img src={product?.product_images[0]?.url} alt="" />
         </div>
         <div>{product?.product_name}</div>
+        <div>{product.avg_reviews}</div>
         <div>{product?.price}</div>
         <div>{product?.description}</div>
         <div>{product?.in_stock ? 'In Stock!' : 'Out of Stock'}</div>
-
+        
       </div>
       <br />
       <div>

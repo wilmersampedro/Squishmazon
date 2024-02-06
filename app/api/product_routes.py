@@ -96,7 +96,7 @@ def delete_product(id):
   if current_user.id == product.vendor_id:
     db.session.delete(product)
     db.session.commit()
-    if(product.product_image[0].url):
+    if(product.product_image[0]):
       [remove_file_from_s3(img.url) for img in product.product_image]
       # remove_file_from_s3(product.product_image[0].url)
     return {"message": "Successfully deleted"}
