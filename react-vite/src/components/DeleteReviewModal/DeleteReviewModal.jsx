@@ -15,13 +15,14 @@ function DeleteReviewModal({ review }) {
   }
   return (
     <>
-    <div>
+    <div id="deleteModalTitle">
       Delete Review
     </div>
     <form onSubmit={handleDeleteRev}>
-      <div>Are you sure you want to delete this review?</div>
-      <div>
-          <div onClick={closeModal}>Cancel</div>
+      <div id="confirmDeleteMsg">Are you sure you want to delete this review?</div>
+      
+      <div id="submitModalBtns">
+          <div id="cancelBtn" onClick={closeModal}>Cancel</div>
           <button type="submit" onClick={handleDeleteRev}>Yes (delete review)</button>
         </div>
     </form>

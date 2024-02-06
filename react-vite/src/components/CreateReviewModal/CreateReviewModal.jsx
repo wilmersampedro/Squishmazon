@@ -15,7 +15,7 @@ function CreateReviewModal({ product }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     const errs = {};
-    if (reviewText.length > 350) errs.reviewText = "Review text must be less than 350 characters"
+    if (reviewText.length > 350) errs.reviewText = "Please enter at most 350 characters"
     if(!reviewText.length) errs.reviewText = "Please include a written review"
     if (stars < 1 || stars > 5) errs.stars = "Star rating must be between 1-5"
     if (!stars) errs.stars = "Please select a star rating"
@@ -59,7 +59,7 @@ function CreateReviewModal({ product }) {
         <div className="form-errors">
           {errors.stars}
         </div>
-        
+
         <div id="reviewTextContainer">
           <label htmlFor="reviewText">
             Add a written review
@@ -72,6 +72,7 @@ function CreateReviewModal({ product }) {
             placeholder="What did you like or dislike? Leave your review here..."
             rows="7"
             cols="50"
+            maxLength="350"
             onChange={(e) => setReviewText(e.target.value)}
           />
           <div className="form-errors">
