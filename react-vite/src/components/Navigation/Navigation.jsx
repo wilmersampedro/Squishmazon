@@ -1,12 +1,17 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import ProfileButton from "./ProfileButton";
 import "./Navigation.css";
 import OpenModalMenuItem from "./OpenModalMenuItem";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useState, useEffect, useRef } from "react";
 import CreateProductModal from "../CreateProductModal/CreateProductModal";
+import { thunkLogout } from "../../redux/session";
+import LoginFormModal from "../LoginFormModal";
+import SignupFormModal from "../SignupFormModal";
 
 function Navigation() {
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
   const [showMenu, setShowMenu] = useState(false);
   const user = useSelector(state => state.session.user)
   const ulRef = useRef();
@@ -36,6 +41,7 @@ function Navigation() {
     e.preventDefault();
     dispatch(thunkLogout());
     closeMenu();
+    navigate("/")
   };
 
   return (
