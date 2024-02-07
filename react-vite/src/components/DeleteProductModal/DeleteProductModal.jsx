@@ -14,14 +14,14 @@ function DeleteProductModal({ product }) {
   }
   return (
     <>
-    <div>
+    <div id="deleteModalTitle">
       Delete Product
     </div>
     <form onSubmit={handleDeleteProd}>
-      <div>Are you sure you want to delete {product.product_name}?</div>
-      <div>
-          <div onClick={closeModal}>Cancel</div>
-          <input type="submit"/>
+      <div id="confirmDeleteMsg">Are you sure you want to delete {product.product_name}?</div>
+      <div id="submitModalBtns">
+          <div id="cancelBtn" onClick={closeModal}>Cancel</div>
+          <button type="submit">Yes (delete 'mallow)</button>
         </div>
     </form>
     </>

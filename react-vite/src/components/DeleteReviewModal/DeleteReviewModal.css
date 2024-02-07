@@ -1,0 +1,23 @@
+#deleteModalTitle{
+  font-size: 24px;
+  margin-bottom: .5em;
+  font-weight: bold;
+}
+
+#confirmDeleteMsg{
+  font-size: 18px;
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+#submitModalBtns>button{
+  background-color: rgb(173, 56, 173);
+  color: white;
+  padding: 4px 8px 4px 8px;
+  border-radius: 7px;
+}
+
+#submitModalBtns > button:hover{
+  cursor: pointer;
+  background-color: rgb(143, 46, 143);
+}
