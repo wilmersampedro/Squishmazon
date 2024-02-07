@@ -53,18 +53,28 @@ function Navigation() {
       </li>
 
       <li id="accountInfo" onClick={toggleMenu}>
+        {user ?
+        <>
         <div>
         <span>Hello, {user?.first_name}</span>
         </div>
         <span>Account & Wish List</span>
+        </> :
+        <>
+        <div>
+          <span>Hello, sign in</span>
+        </div>
+        <span>Or sign up</span>
+        </>
+        }
         <span id="downArrow"><i class="fa-solid fa-caret-down"></i></span>
       </li>
       {showMenu && (
         <ul className={"profile-dropdown"} ref={ulRef}>
           {user ? (
             <>
-              <li>Hello, {user.first_name}</li>
-              <li>{user.email}</li>
+              {/* <li>Hello, {user.first_name}</li>
+              <li>{user.email}</li> */}
               <li>
                 <NavLink to="/my-products" id="manageLink"onClick={closeMenu}>Manage my 'mallows</NavLink>
                 </li>
