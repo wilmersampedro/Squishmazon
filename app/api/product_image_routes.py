@@ -37,7 +37,7 @@ def update_image(id):
       # new_image = ProductImage(url = url, product_id = img.image_product.id)
       # db.session.add(new_image)
       db.session.commit()
-      return {"message": "Successfully uploaded image"}
+      return img.to_dict()
   else:
     print("*************", form.errors)
     return form.errors, 400

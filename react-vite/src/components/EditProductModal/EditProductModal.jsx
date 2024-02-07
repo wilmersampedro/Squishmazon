@@ -20,11 +20,11 @@ function EditProductModal({ product }) {
 
 
 
-  const handleSubmit = e => {
+  const handleSubmit = async e => {
     e.preventDefault()
     const errs = {}
-    if(productName > 128) errs.productName = "Name must be less than 128 character"
-    if(description > 350) errs.description = "Description must be less than 350 character"
+    if (productName > 128) errs.productName = "Name must be less than 128 character"
+    if (description > 350) errs.description = "Description must be less than 350 character"
     if (!productName) errs.productName = "Please include a name for your 'mallow"
     if (!description) errs.description = "Please include a description for your 'mallow"
     if (!price) errs.price = "Please set a price for your 'mallow"
@@ -45,22 +45,22 @@ function EditProductModal({ product }) {
       in_stock: inStock
     }
 
-    if(image !== product.product_images[0].url) {
+    if (image !== product.product_images[0].url) {
       const formData = new FormData()
       formData.append("image", image)
       setImageLoading(true)
 
-      dispatch(thunkUpdateImage(product, product.product_images[0].id, formData))
+      const updatedProd = await dispatch(thunkUpdateImage(product, product.product_images[0], formData))
       // closeModal()
-      // location.pathname = "/my-products"
       // location.pathname = "/"
     }
-
+    
     dispatch(thunkEditProduct(product.id, body, ok => {
-      if(ok) return closeModal()
+      if (ok) return closeModal()
       setErrors(errors)
-  }))
-  dispatch(thunkFetchOneProduct(product.id))
+    }))
+    location.pathname = "/my-products"
+    // dispatch(thunkFetchMyProducts())
   }
 
   const fileWrap = (e) => {
@@ -101,17 +101,17 @@ function EditProductModal({ product }) {
           </label>
           <span className="form-errors">{errors.image}</span>
           <div id="thumbnailContainer">
-          {/* {imageURL && <img src={imageURL} alt="thumbnail" id="thumbnailImg" />} */}
-          {(() => {
-            if (!imageURL) {
-              return <img src={image} alt="thumbnail" id="thumbnailImg" />
-            } else {
-              return <img src={imageURL} alt="thumbnail" id="thumbnailImg" />
-            }
-          })()}
-          {/* {!imageURL && <div id="noThumbnail">No file chosen</div> } */}
-          {/* <span id="fileName">{file.name ? file.name : "No file chosen"}</span> */}
-          {/* <div className="form-errors">
+            {/* {imageURL && <img src={imageURL} alt="thumbnail" id="thumbnailImg" />} */}
+            {(() => {
+              if (!imageURL) {
+                return <img src={image} alt="thumbnail" id="thumbnailImg" />
+              } else {
+                return <img src={imageURL} alt="thumbnail" id="thumbnailImg" />
+              }
+            })()}
+            {/* {!imageURL && <div id="noThumbnail">No file chosen</div> } */}
+            {/* <span id="fileName">{file.name ? file.name : "No file chosen"}</span> */}
+            {/* <div className="form-errors">
             {errors.image}
           </div> */}
           </div>
@@ -165,14 +165,14 @@ function EditProductModal({ product }) {
           </div>
         </div>
         <div>
-        <label htmlFor="inStock">
-          In stock?
-        </label>
-        <input
-        type="checkbox"
-        checked={inStock}
-        onClick={(e) => setInStock(!inStock)}
-        />
+          <label htmlFor="inStock">
+            In stock?
+          </label>
+          <input
+            type="checkbox"
+            checked={inStock}
+            onClick={(e) => setInStock(!inStock)}
+          />
         </div>
         <br />
         <div id="submitModalBtns">
