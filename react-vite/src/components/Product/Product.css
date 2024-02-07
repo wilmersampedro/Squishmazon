@@ -56,6 +56,15 @@ body{
   background-position: 0px -3px;
 }
 
+.star-4-5{
+  background-image: url(https://m.media-amazon.com/images/S/sash/9DuIU8ZS5i377uD.png);
+  position: relative;
+  /* left: 50px; */
+  height: 18px;
+  width: 84px;
+  background-position: 0px -43px;
+}
+
 .star-4{
   background-image: url(https://m.media-amazon.com/images/S/sash/9DuIU8ZS5i377uD.png);
   position: relative;
@@ -63,6 +72,15 @@ body{
   height: 18px;
   width: 84px;
   background-position: 0px -23px;
+}
+
+.star-3-5{
+  background-image: url(https://m.media-amazon.com/images/S/sash/9DuIU8ZS5i377uD.png);
+  position: relative;
+  /* left: 50px; */
+  height: 18px;
+  width: 84px;
+  background-position: 0px -82px;
 }
 
 .star-3{

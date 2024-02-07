@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
-import { thunkCreateReview } from "../../redux/review";
+import { thunkCreateReview, thunkFetchReviews } from "../../redux/review";
 import './CreateReviewModal.css'
 
 function CreateReviewModal({ product }) {
@@ -27,6 +27,7 @@ function CreateReviewModal({ product }) {
     }
 
     dispatch(thunkCreateReview(product.id, body))
+    
     closeModal()
   }
 

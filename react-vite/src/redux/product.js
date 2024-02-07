@@ -111,6 +111,15 @@ export const thunkCreateImage = (newProduct, post) => async (dispatch) => {
   }
 }
 
+export const thunkUpdateImage = (product, imageId, body) => dispatch => {
+  fetch(`/api/product-images/${imageId}`, {
+    method: "PUT",
+    body
+  })
+  .then(r => r.json())
+  .then(() => dispatch(receiveProduct(product)))
+}
+
 
 const productReducer = (state = { product: {} }, action) => {
   switch (action.type) {
