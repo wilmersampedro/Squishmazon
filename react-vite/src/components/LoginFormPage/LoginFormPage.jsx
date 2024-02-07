@@ -37,6 +37,8 @@ function LoginFormPage() {
       {errors.length > 0 &&
         errors.map((message) => <p key={message}>{message}</p>)}
       <form onSubmit={handleSubmit}>
+        <div id="emailInputContainer">
+
         <label>
           Email
           <input
@@ -44,9 +46,10 @@ function LoginFormPage() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
-          />
+            />
         </label>
         {errors.email && <p>{errors.email}</p>}
+            </div>
         <label>
           Password
           <input

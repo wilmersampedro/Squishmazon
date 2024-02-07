@@ -52,7 +52,7 @@ function Navigation() {
         <NavLink to="/" style={{"color": "white"}} ><img id="homeLogo"src="/homelogo.svg" alt="" /> </NavLink>
       </li>
 
-      <li id="accountInfo" onClick={toggleMenu}>
+      <li id="accountInfo" onClick={toggleMenu} >
         {user ?
         <>
         <div>
@@ -85,18 +85,20 @@ function Navigation() {
               modalComponent={<CreateProductModal />}
               />
               <li>
-                <button id="logoutBtn"onClick={logout}>Log Out</button>
+                <div id="logoutBtn"onClick={logout}>Sign Out</div>
               </li>
             </>
           ) : (
             <>
               <OpenModalMenuItem
                 itemText="Log In"
+                className="authBtns"
                 onItemClick={closeMenu}
                 modalComponent={<LoginFormModal />}
               />
               <OpenModalMenuItem
                 itemText="Sign Up"
+                className="authBtns"
                 onItemClick={closeMenu}
                 modalComponent={<SignupFormModal />}
               />
