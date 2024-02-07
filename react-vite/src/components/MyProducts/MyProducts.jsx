@@ -45,13 +45,15 @@ function MyProducts() {
                   <div className="tileImageContainer">
                     <img src={p.product_images[0]?.url} alt="tileImage" className="tileImage" />
                   </div>
-                  <div>{p.price}</div>
                   <div>{p.product_name}</div>
+                  <div className={p.avg_reviews == 5 || p.avg_reviews >= 4.8 ? "star-5" : p.avg_reviews < 4.8 && p.avg_reviews >= 4.3 ? "star-4-5" : p.avg_reviews < 4.3 && p.avg_reviews >= 3.8 ? "star-4" : p.avg_reviews < 3.8 && p.avg_reviews >= 3.3 ? "star-3-5" : p.avg_reviews < 3.3 && p.avg_reviews >= 2.8 ? "star-3" : p.avg_reviews < 2.8 && p.avg_reviews >= 2.3 ? "star-2-5" : p.avg_reviews < 2.3 && p.avg_reviews >= 1.8 ? "star-2" : p.avg_reviews < 1.8 && p.avg_reviews >= 1.3 ? "star-1-5" : p.avg_reviews < 1.3 && p.avg_reviews >= .8 ? "star-1" : p.avg_reviews < .8 && p.avg_reviews >= .3 ? "star-half" : "star-0"}><span className="numReviews">{p.num_reviews} {p.num_reviews == 1 ? "Review" : "Reviews"}</span> </div>
+                  <div className="tilePrice">{p.price.toFixed(2)}</div>
                   {p.in_stock ? <div>In Stock!</div> : <div>Out of Stock!</div>}
                 </div>
               </div>
               <div>
                 <OpenModalButton
+                  id="editRevBtn"
                   buttonText="Edit"
                   modalComponent={<EditProductModal product={p} />}
                   onClick={(e) => {
@@ -60,6 +62,7 @@ function MyProducts() {
 
                 />
                 <OpenModalButton
+                  id="deleteRevBtn"
                   buttonText="Delete"
                   modalComponent={<DeleteProductModal product={p} />}
                 />

@@ -96,7 +96,7 @@ def delete_product(id):
   if current_user.id == product.vendor_id:
     db.session.delete(product)
     db.session.commit()
-    if(product.product_image[0].url):
+    if(product.product_image[0]):
       [remove_file_from_s3(img.url) for img in product.product_image]
       # remove_file_from_s3(product.product_image[0].url)
     return {"message": "Successfully deleted"}
@@ -153,12 +153,11 @@ def create_review(id):
 @login_required
 def upload_img(id):
   newly_created_prod = Product.query.get(id)
-  print("DOES THIS EXIST?????", newly_created_prod.to_dict())
-  print("IN THE BACKEND??????")
+
   form = ImageForm()
   form['csrf_token'].data = request.cookies['csrf_token']
   if form.validate_on_submit():
-    print("VALID??????")
+
     image = form.data["image"]
     image.filename = get_unique_filename(image.filename)
     upload = upload_file_to_s3(image)
@@ -168,7 +167,7 @@ def upload_img(id):
     # if the dictionary doesn't have a url key
     # it means that there was an error when we tried to upload
     # so we send back that error message (and we printed it above)
-      print("URL NOT IN UPLOAD???????")
+
       return {"errors": upload}
 
     url = upload["url"]
@@ -177,8 +176,6 @@ def upload_img(id):
     db.session.commit()
     return {"message": "Successfully uploaded image"}
   else:
-    print("HITTING THE LAST ELSE??")
-    print("FORM ERRORS IN BACKEND",form.errors)
     return form.errors, 400
 
 

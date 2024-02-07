@@ -1,0 +1,62 @@
+#editModalTitle{
+  font-size: 24px;
+  margin-bottom: .5em;
+  font-weight: bold;
+}
+
+#overallRating{
+  font-size: 18px;
+  margin-top: 1em;
+  margin-bottom: .3em;
+}
+
+#stars-container{
+  margin-top: .3em;
+  margin-bottom: .3em;
+}
+
+#reviewTextContainer{
+  display: flex;
+  flex-direction: column;
+  margin-top: 15px;
+  font-size: 18px;
+}
+
+
+
+.form-errors{
+  min-height: 15px;
+  max-height: 15px;
+  font-size: 14px;
+  color: red;
+  /* color: #dd000d; */
+}
+
+#submitModalBtns{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#submitModalBtns > input{
+  background-color: rgb(173, 56, 173);
+  color: white;
+  padding: 4px 8px 4px 8px;
+  border-radius: 7px;
+}
+
+#submitModalBtns > input:hover{
+  cursor: pointer;
+  background-color: rgb(143, 46, 143);
+}
+
+#cancelBtn{
+  color: #5865F2;
+  /* color: red; */
+  font-size: 14px;
+}
+
+#cancelBtn:hover{
+  text-decoration: underline;
+  cursor: pointer;
+}

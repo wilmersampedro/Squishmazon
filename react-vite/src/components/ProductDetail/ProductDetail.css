@@ -1,0 +1,169 @@
+#productDetailContainer {
+  display: flex;
+  margin-left: 140px;
+  margin-right: 140px;
+  background-color: white;
+  border-bottom: 1px solid #565959;
+  padding-bottom: 50px;
+}
+
+#productDetailsInner{
+  /* display: flex; */
+  /* flex-direction: column; */
+  margin-left: 30px;
+  padding-top: 40px;
+  padding-bottom: 80px;
+  padding-right: 360px;
+
+}
+
+
+#productDetailsName{
+  font-size: 32px;
+  margin: 10px 10px 10px 0px;
+}
+
+#productDetailsPrice{
+  font-size: 18px;
+  margin: 10px 10px 10px 0px;
+}
+
+#productDetailPriceSpan{
+  font-size: 14px;
+}
+
+#productDetailsInStock{
+  margin: 10px 10px 10px 0px;
+}
+
+#productDetailsDescription{
+  margin: 10px 70px 10px 0px;
+  letter-spacing: .5px;
+  width: 680px;
+}
+
+
+/* REVIEWS */
+#reviewsSection{
+  display: grid;
+  grid-template-columns: 540px 1fr;
+  column-gap: 30px;
+  /* justify-content: space-between; */
+  margin-left: 140px;
+  margin-right: 140px;
+  background-color: white;
+  padding: 60px;
+}
+
+#reviewSectionStars{
+  display: flex;
+  margin-bottom: 10px;
+}
+
+#reviewSectionLeft{
+  border-bottom: 1px solid black;
+  width: 540px;
+}
+
+#reviewSectionLeftHeader{
+  font-size: 21px;
+  font-weight: bold;
+}
+
+#globalRatings{
+  /* line-height: 20px; */
+  color: #565959;
+  font-size: 14px;
+}
+
+#revPromptLeft{
+  margin-bottom: 10px;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+#revPromptL2{
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+.revSec4{
+  /* height: 500px; */
+  /* width: 4000px; */
+  position: relative;
+  /* height: 32px; */
+  width: 100px;
+  right: 4px;
+  background-position: 0px -346px;
+}
+
+.revSecAvg{
+  position: relative;
+  left: 100px;
+}
+
+#productReviewsSection{
+  /* font-size: 16px; */
+  width: 680px;
+}
+
+#reviewText{
+  /* text-overflow: hidden; */
+  /* width: 680px; */
+  word-wrap: break-word;
+}
+
+#revBtnContainer{
+  margin-top: 5px;
+}
+
+#postRevBtn{
+  font-size: 13px;
+  width: 300px;
+  border: 1px solid lightgray;
+  height: 30px;
+  padding: 3px;
+  border-radius: 7px;
+  background: white;
+  box-shadow: 2px 2px 2px 2px lightgray;
+  margin-bottom: 40px;
+}
+
+#postRevBtn:hover{
+  cursor: pointer;
+  background-color: rgb(240, 240, 240);
+}
+
+#editRevBtn{
+  font-size: 12px;
+  width: 80px;
+  border: 1px solid lightgray;
+  /* box-shadow:; */
+  padding: 3px;
+  border-radius: 7px;
+  background: white;
+  box-shadow: 2px 2px 2px 2px lightgray;
+  margin-right: 2px;
+}
+
+#deleteRevBtn{
+  font-size: 12px;
+  width: 80px;
+  border: 1px solid lightgray;
+  /* box-shadow:; */
+  padding: 3px;
+  border-radius: 7px;
+  background: white;
+  box-shadow: 2px 2px 2px 2px lightgray;
+  margin-left: 2px;
+}
+
+#editRevBtn:hover{
+  cursor: pointer;
+  background-color: rgb(240, 240, 240);
+}
+
+#deleteRevBtn:hover{
+  cursor: pointer;
+  background-color: rgb(240, 240, 240);
+}
