@@ -84,8 +84,9 @@ function EditProductModal({ product }) {
         onClick={(e) => setInStock(!inStock)}
         />
         </div>
-        <div>
-          <div onClick={closeModal}>Cancel</div>
+        <br />
+        <div id="submitModalBtns">
+          <div id="cancelBtn" onClick={closeModal}>Cancel</div>
           <input type="submit"/>
         </div>
       </form>

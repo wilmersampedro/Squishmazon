@@ -53,6 +53,7 @@ function MyProducts() {
               </div>
               <div>
                 <OpenModalButton
+                  id="editRevBtn"
                   buttonText="Edit"
                   modalComponent={<EditProductModal product={p} />}
                   onClick={(e) => {
@@ -61,6 +62,7 @@ function MyProducts() {
 
                 />
                 <OpenModalButton
+                  id="deleteRevBtn"
                   buttonText="Delete"
                   modalComponent={<DeleteProductModal product={p} />}
                 />
