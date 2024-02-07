@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { thunkCreateReview, thunkFetchReviews } from "../../redux/review";
 import './CreateReviewModal.css'
+import { thunkFetchOneProduct } from "../../redux/product";
 
 function CreateReviewModal({ product }) {
   const dispatch = useDispatch();

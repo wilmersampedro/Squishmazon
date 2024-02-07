@@ -38,13 +38,13 @@ class Product(db.Model):
         "OrderItem", back_populates="item_product", cascade="all, delete-orphan"
     )
 
-    def avg_rev(self, reviews):
+    def avg_rev(self):
         sum = 0
-        for rev in reviews:
+        for rev in self.product_review:
             sum += rev.stars
         if sum == 0:
             return 0
-        return sum / len(reviews)
+        return sum / len(self.product_review)
 
     def to_dict(self):
         return {
@@ -55,7 +55,7 @@ class Product(db.Model):
             "vendor_id": self.vendor_id,
             "in_stock": self.in_stock,
             "product_images": [img.to_dict() for img in self.product_image],
-            "avg_reviews": self.avg_rev(self.product_review),
+            "avg_reviews": self.avg_rev(),
             "num_reviews": len(self.product_review),
             "created_at": self.created_at,
             "updated_at": self.updated_at,

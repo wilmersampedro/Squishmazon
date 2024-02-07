@@ -50,7 +50,7 @@ function ProductDetail() {
 
   useEffect(() => {
     dispatch(thunkFetchOneProduct(productId))
-  }, [dispatch, productId])
+  }, [dispatch, reviews, productId])
 
 
   const existingReviewCheck = (userId) => {
@@ -59,6 +59,7 @@ function ProductDetail() {
     }
     return false;
   }
+
 
   if (!product || reviews.review || !product.product_images[0]?.url) return null
   return (
@@ -81,7 +82,7 @@ function ProductDetail() {
         <div id="reviewSectionLeft">
             <div id="reviewSectionLeftHeader">Customer reviews</div>
           <div id="reviewSectionStars">
-            <div className={product.avg_reviews == 5 ? "star-5 revSec5" : product.avg_reviews == 4 ? "star-4 revSec4" : product.avg_reviews == 3 ? "star-3 revSec3" : product.avg_reviews == 2 ? "star-2 revSec2" : product.avg_reviews == 1 ? "star-1 revSec1" : "star-0 revSec0"}><span className="revSecAvg">{product.avg_reviews} out of 5</span> </div>
+            <div className={product.avg_reviews == 5 || product.avg_reviews >= 4.8 ? "star-5" : product.avg_reviews < 4.8 && product.avg_reviews >= 4.3 ? "star-4-5" : product.avg_reviews < 4.3 && product.avg_reviews >= 3.8 ? "star-4" : product.avg_reviews < 3.8 && product.avg_reviews >= 3.3 ? "star-3-5" : product.avg_reviews < 3.3 && product.avg_reviews >= 2.8 ? "star-3" : product.avg_reviews < 2.8 && product.avg_reviews >= 2.3 ? "star-2-5" : product.avg_reviews < 2.3 && product.avg_reviews >= 1.8 ? "star-2" : product.avg_reviews < 1.8 && product.avg_reviews >= 1.3 ? "star-1-5" : product.avg_reviews < 1.3 && product.avg_reviews >= .8 ? "star-1" : product.avg_reviews < .8 && product.avg_reviews >= .3 ? "star-half" : "star-0"}><span className="revSecAvg">{product.avg_reviews} out of 5</span> </div>
           </div>
           <div id="globalRatings">{product?.num_reviews} global {product?.num_reviews == 1 ? "rating" : "ratings"}</div>
           <br />
