@@ -107,6 +107,12 @@
   width: 680px;
 }
 
+#reviewText{
+  /* text-overflow: hidden; */
+  /* width: 680px; */
+  word-wrap: break-word;
+}
+
 #revBtnContainer{
   margin-top: 5px;
 }

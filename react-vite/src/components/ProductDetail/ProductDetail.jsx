@@ -114,7 +114,7 @@ function ProductDetail() {
                   <div className={r.stars == 5 ? "star-5" : r.stars == 4 ? "star-4" : r.stars == 3 ? "star-3" : r.stars == 2 ? "star-2" : r.stars == 1 ? "star-1" : "star-0"}></div>
 
                   <div>Reviewed on: {dateFormatter(r?.created_at)}</div>
-                  <div>{r?.review_text}</div>
+                  <div id="reviewText">{r?.review_text}</div>
                   <div id="revBtnContainer">
                   {r?.user_id == user?.id && <OpenModalButton
                     id="editRevBtn"
