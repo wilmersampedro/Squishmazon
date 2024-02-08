@@ -4,10 +4,13 @@ import { useModal } from "../../context/Modal";
 import { thunkEditProduct, thunkFetchMyProducts, thunkFetchOneProduct, thunkUpdateImage } from "../../redux/product";
 import "./EditProductModal.css";
 import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { UpdatedContext } from "../../context/UpdatedContext";
 
 function EditProductModal({ product }) {
   const dispatch = useDispatch();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const { hasUpdated, setHasUpdated } = useContext(UpdatedContext);
   const { closeModal } = useModal();
   const [productName, setProductName] = useState(product.product_name);
   const [description, setDescription] = useState(product.description);
@@ -54,12 +57,16 @@ function EditProductModal({ product }) {
       // closeModal()
       // location.pathname = "/"
     }
-    
+
     dispatch(thunkEditProduct(product.id, body, ok => {
       if (ok) return closeModal()
       setErrors(errors)
     }))
-    location.pathname = "/my-products"
+
+    setTimeout(() => {
+      setHasUpdated(!hasUpdated)
+    }, 1000)
+    // location.pathname = "/my-products"
     // dispatch(thunkFetchMyProducts())
   }
 

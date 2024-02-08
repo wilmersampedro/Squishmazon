@@ -67,7 +67,7 @@ function Navigation() {
         <span>Or sign up</span>
         </>
         }
-        <span id="downArrow"><i class="fa-solid fa-caret-down"></i></span>
+        <span id="downArrow"><i className="fa-solid fa-caret-down"></i></span>
       </li>
       {showMenu && (
         <ul className={"profile-dropdown"} ref={ulRef}>
