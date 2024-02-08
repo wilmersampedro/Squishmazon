@@ -134,7 +134,7 @@ function ProductDetail() {
                 </div>)}
               </div> :
               <div>
-                <h2>Be the first to post a review!</h2>
+                {user?.id == product?.vendor_id ? <h2>No reviews yet!</h2>  : <h2>Be the first to post a review!</h2>}
               </div>
           })()}
         </div>

@@ -16,6 +16,42 @@ def seed_product_images():
         url = "https://wsampaaprojectsbucket.s3.us-west-1.amazonaws.com/tansy.webp",
         product_id = 3
     ))
+    db.session.add(ProductImage(
+        url = "https://wsampaaprojectsbucket.s3.us-west-1.amazonaws.com/fessh.webp",
+        product_id = 4
+    ))
+    db.session.add(ProductImage(
+        url = "https://wsampaaprojectsbucket.s3.us-west-1.amazonaws.com/sunglasses.webp",
+        product_id = 5
+    ))
+    db.session.add(ProductImage(
+        url = "https://wsampaaprojectsbucket.s3.us-west-1.amazonaws.com/astr.webp",
+        product_id = 6
+    ))
+    db.session.add(ProductImage(
+        url = "https://wsampaaprojectsbucket.s3.us-west-1.amazonaws.com/eb59f015a4f84c8e9ce0bdb788ca26de.webp",
+        product_id = 7
+    ))
+    db.session.add(ProductImage(
+        url = "https://wsampaaprojectsbucket.s3.us-west-1.amazonaws.com/iguana.webp",
+        product_id = 8
+    ))
+    db.session.add(ProductImage(
+        url = "https://wsampaaprojectsbucket.s3.us-west-1.amazonaws.com/bluewhale.webp",
+        product_id = 9
+    ))
+    db.session.add(ProductImage(
+        url = "https://wsampaaprojectsbucket.s3.us-west-1.amazonaws.com/bear.webp",
+        product_id = 10
+    ))
+    db.session.add(ProductImage(
+        url = "https://wsampaaprojectsbucket.s3.us-west-1.amazonaws.com/bterfly.webp",
+        product_id = 11
+    ))
+    db.session.add(ProductImage(
+        url = "https://wsampaaprojectsbucket.s3.us-west-1.amazonaws.com/catstr.webp",
+        product_id = 12
+    ))
     # db.session.add(ProductImage(
     #     product_id = 2,
     #     user_id = 1,

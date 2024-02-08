@@ -4,18 +4,26 @@ body {
 
 :root{
   --appPurp: #6E3778;
+  --appGold: #FFBC00;
+  --btnPurp: rgb(173, 56, 173);
 }
 .profile-dropdown {
   position: absolute;
   background-color: white;
   border: 1px solid black;
-  right: 107px;
+  right: 126px;
   top: 72px;
   color: black;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  padding: 1em;
+  border-radius: 5px;
 }
 
 #accountInfo:hover{
   cursor: pointer;
+
 }
 
 #homeLogo{
@@ -62,16 +70,40 @@ body {
 
 #manageLink:hover{
   cursor: pointer;
-  color: #6E3778;
+  color: #FFBC00;
   text-decoration: underline;
 }
 
 #CreateNewMallow:hover{
   cursor: pointer;
-  color: #6E3778;
+  color: #FFBC00;
   text-decoration: underline;
 }
 
 #logoutBtn:hover{
   cursor: pointer;
+  color: #FFBC00;
+  text-decoration: underline;
+  /* align-content: center;
+  justify-self: center;
+  font-size: 14px; */
+  /* width: 300px; */
+  /* border: 1px solid lightgray;
+  height: 30px;
+  padding: 3px 6px;
+  border-radius: 7px;
+  background: rgb(143, 46, 143);
+  color: white; */
+  /* box-shadow: 2px 2px 2px 2px lightgray; */
+  /* margin-bottom: 40px; */
+}
+
+#logoutBtn:hover{
+  cursor: pointer;
+}
+
+.authBtns:hover{
+  cursor: pointer;
+  color: #FFBC00;
+  text-decoration: underline;
 }

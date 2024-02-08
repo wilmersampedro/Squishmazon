@@ -7,7 +7,9 @@ import "./SignupForm.css";
 function SignupFormModal() {
   const dispatch = useDispatch();
   const [email, setEmail] = useState("");
-  const [username, setUsername] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [address, setAddress] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState({});
@@ -25,8 +27,10 @@ function SignupFormModal() {
 
     const serverResponse = await dispatch(
       thunkSignup({
+        first_name: firstName,
+        last_name: lastName,
         email,
-        username,
+        address,
         password,
       })
     );
@@ -43,47 +47,100 @@ function SignupFormModal() {
       <h1>Sign Up</h1>
       {errors.server && <p>{errors.server}</p>}
       <form onSubmit={handleSubmit}>
-        <label>
-          Email
+        <div className="inputFields">
+          <label>
+            First Name
+          </label>
+          <input
+            type="text"
+            minLength="2"
+            maxLength="40"
+            value={firstName}
+            onChange={(e) => setFirstName(e.target.value)}
+            required
+          />
+          <div className="form-errors">
+            {errors.firstName}
+          </div>
+        </div>
+        <div className="inputFields">
+          <label>
+            Last Name
+          </label>
+          <input
+            type="text"
+            minLength="2"
+            maxLength="40"
+            value={lastName}
+            onChange={(e) => setLastName(e.target.value)}
+            required
+          />
+          <div className="form-errors">
+            {errors.lastName}
+          </div>
+        </div>
+        <div className="inputFields">
+
+          <label>
+            Email
+          </label>
           <input
             type="text"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
           />
-        </label>
-        {errors.email && <p>{errors.email}</p>}
-        <label>
-          Username
+          <div className="form-errors">
+            {errors.email}
+          </div>
+        </div>
+        <div className="inputFields">
+          <label>
+            Address
+          </label>
           <input
             type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            value={address}
+            onChange={(e) => setAddress(e.target.value)}
             required
           />
-        </label>
-        {errors.username && <p>{errors.username}</p>}
-        <label>
-          Password
+          <div className="form-errors">
+            {errors.address}
+          </div>
+        </div>
+        <div className="inputFields">
+
+          <label>
+            Password
+          </label>
           <input
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-        </label>
-        {errors.password && <p>{errors.password}</p>}
-        <label>
-          Confirm Password
+          <div className="form-errors">
+            {errors.password}
+          </div>
+        </div>
+        <div className="inputFields">
+
+          <label>
+            Confirm Password
+          </label>
           <input
             type="password"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
             required
           />
-        </label>
-        {errors.confirmPassword && <p>{errors.confirmPassword}</p>}
+          <div className="form-errors">
+            {errors.confirmPassword}
+          </div>
+        </div>
+        <div id="loginBtnsContainer">
         <button type="submit">Sign Up</button>
+        </div>
       </form>
     </>
   );
