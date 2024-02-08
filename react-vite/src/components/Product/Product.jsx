@@ -14,7 +14,7 @@ function Products() {
     dispatch(thunkFetchProducts())
   }, [dispatch])
 
-  if (!prodArr[prodArr.length - 1].product_images) return null
+  // if (!prodArr[prodArr.length - 1].product_images) return null
 
   return (
     <>

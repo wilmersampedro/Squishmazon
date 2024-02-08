@@ -23,6 +23,7 @@ function LoginFormModal() {
 
     if (serverResponse) {
       setErrors(serverResponse);
+      console.log(".....",errors)
     } else {
       closeModal();
     }
@@ -30,30 +31,43 @@ function LoginFormModal() {
 
   return (
     <>
-      <h1>Log In</h1>
+      <h1 id="authHeader">Log In</h1>
       <form onSubmit={handleSubmit}>
-        <label>
-          Email
+        <div id="emailInputContainer">
+
+          <label htmlFor="emailInput">
+            Email
+          </label>
           <input
+            name="emailInput"
             type="text"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
           />
-        </label>
-        {errors.email && <p>{errors.email}</p>}
-        <label>
-          Password
+          <div className="form-errors">
+            {errors.email}
+          </div>
+        </div>
+        <div id="passwordInputContainer">
+
+          <label>
+            Password
+          </label>
           <input
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-        </label>
-        {errors.password && <p>{errors.password}</p>}
+          <div className="form-errors">
+            {errors.password}
+          </div>
+        </div>
+        <div id="loginBtnsContainer">
         <button type="submit">Log In</button>
-        <button onClick={(e) => {dispatch(thunkLogin({email: 'demo@aa.io', password: 'password'})); closeModal(); e.preventDefault()}}>Demo User</button>
+        <div id="demoBtn" onClick={(e) => { dispatch(thunkLogin({ email: 'demo@aa.io', password: 'password' })); closeModal(); e.preventDefault() }}>Demo User</div>
+        </div>
       </form>
     </>
   );

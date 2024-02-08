@@ -1,0 +1,38 @@
+#authHeader{
+  margin-top: 0;
+}
+
+#emailInputContainer{
+  display: flex;
+  flex-direction: column;
+}
+
+#passwordInputContainer{
+  display: flex;
+  flex-direction: column;
+}
+
+#loginBtnsContainer{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 10px;
+}
+
+#loginBtnsContainer > button{
+  background-color: var(--btnPurp);
+  color: white;
+  padding: 4px 8px;
+  border-radius: 7px;
+  margin-bottom: .5em;
+}
+
+#loginBtnsContainer > button:hover {
+  cursor: pointer;
+}
+
+#demoBtn:hover{
+  text-decoration: underline;
+  cursor: pointer;
+  color: var(--appGold);
+}

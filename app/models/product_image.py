@@ -10,6 +10,7 @@ class ProductImage(db.Model):
 
   id = db.Column(db.Integer, primary_key=True)
   url = db.Column(db.String, nullable=False)
+  #preview_img boolean attribute 
   product_id = db.Column(db.Integer, db.ForeignKey(Product.id), nullable=False)
   created_at = db.Column(db.DateTime, default=datetime.now)
   updated_at = db.Column(db.DateTime, default=datetime.now, onupdate=datetime.now)

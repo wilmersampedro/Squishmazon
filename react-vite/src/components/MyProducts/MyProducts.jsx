@@ -7,20 +7,25 @@ import OpenModalButton from "../OpenModalButton/OpenModalButton";
 import './MyProducts.css'
 import EditProductModal from "../EditProductModal";
 import DeleteProductModal from "../DeleteProductModal/DeleteProductModal";
-
+import { useContext } from "react";
+import { UpdatedContext } from "../../context/UpdatedContext";
 
 function MyProducts() {
   const dispatch = useDispatch()
   const navigate = useNavigate()
+  const { hasUpdated } = useContext(UpdatedContext);
+
   const sessionUser = useSelector((state) => state.session.user)
   const products = useSelector((state) => state.product)
   const prodArr = Object.values(products)
+  console.log("***********", prodArr)
+
 
   useEffect(() => {
     dispatch(thunkFetchMyProducts())
-  }, [dispatch])
+  }, [dispatch, hasUpdated])
 
-  if (!prodArr[prodArr.length - 1].product_images) return null
+  if (!prodArr[prodArr.length - 1]?.product_images) return <h2>No products yet!</h2>
 
   return (
     <>
@@ -29,13 +34,13 @@ function MyProducts() {
       </div>
       {(() => {
         let productsToDisplay = Object.values(products)
-
+        console.log(productsToDisplay)
         return productsToDisplay.length ? <div className="productGrid">
           {productsToDisplay.map(p =>
-            <div>
+            <div key={p.id}>
               <div
                 className="productTile"
-                key={p.id}
+
                 onClick={() => {
                   navigate(`/product/${p.id}`)
                 }}
@@ -43,12 +48,12 @@ function MyProducts() {
                 <div>
 
                   <div className="tileImageContainer">
-                    <img src={p.product_images[0]?.url} alt="tileImage" className="tileImage" />
+                    <img src={p?.product_images[0]?.url} alt="tileImage" className="tileImage" />
                   </div>
-                  <div>{p.product_name}</div>
-                  <div className={p.avg_reviews == 5 || p.avg_reviews >= 4.8 ? "star-5" : p.avg_reviews < 4.8 && p.avg_reviews >= 4.3 ? "star-4-5" : p.avg_reviews < 4.3 && p.avg_reviews >= 3.8 ? "star-4" : p.avg_reviews < 3.8 && p.avg_reviews >= 3.3 ? "star-3-5" : p.avg_reviews < 3.3 && p.avg_reviews >= 2.8 ? "star-3" : p.avg_reviews < 2.8 && p.avg_reviews >= 2.3 ? "star-2-5" : p.avg_reviews < 2.3 && p.avg_reviews >= 1.8 ? "star-2" : p.avg_reviews < 1.8 && p.avg_reviews >= 1.3 ? "star-1-5" : p.avg_reviews < 1.3 && p.avg_reviews >= .8 ? "star-1" : p.avg_reviews < .8 && p.avg_reviews >= .3 ? "star-half" : "star-0"}><span className="numReviews">{p.num_reviews} {p.num_reviews == 1 ? "Review" : "Reviews"}</span> </div>
+                  <div>{p?.product_name}</div>
+                  <div className={p?.avg_reviews == 5 || p?.avg_reviews >= 4.8 ? "star-5" : p?.avg_reviews < 4.8 && p?.avg_reviews >= 4.3 ? "star-4-5" : p?.avg_reviews < 4.3 && p?.avg_reviews >= 3.8 ? "star-4" : p?.avg_reviews < 3.8 && p?.avg_reviews >= 3.3 ? "star-3-5" : p?.avg_reviews < 3.3 && p?.avg_reviews >= 2.8 ? "star-3" : p?.avg_reviews < 2.8 && p?.avg_reviews >= 2.3 ? "star-2-5" : p?.avg_reviews < 2.3 && p?.avg_reviews >= 1.8 ? "star-2" : p?.avg_reviews < 1.8 && p?.avg_reviews >= 1.3 ? "star-1-5" : p?.avg_reviews < 1.3 && p?.avg_reviews >= .8 ? "star-1" : p?.avg_reviews < .8 && p?.avg_reviews >= .3 ? "star-half" : "star-0"}><span className="numReviews">{p?.num_reviews} {p?.num_reviews == 1 ? "Review" : "Reviews"}</span> </div>
                   <div className="tilePrice">{p.price.toFixed(2)}</div>
-                  {p.in_stock ? <div>In Stock!</div> : <div>Out of Stock!</div>}
+                  {p?.in_stock ? <div>In Stock!</div> : <div>Out of Stock!</div>}
                 </div>
               </div>
               <div>
