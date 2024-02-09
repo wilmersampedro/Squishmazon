@@ -6,7 +6,7 @@ body{
   background-color: #E3E6E6;
 }
 
-@media screen and (max-width: 847px) {
+@media screen and (max-width: 887px) {
   .productGrid{
     grid-template-columns: repeat(1, 1fr) !important;
     /* column-width: 20px; */
@@ -18,7 +18,7 @@ body{
   }
 }
 
-@media screen and (min-width: 848px) and (max-width: 1085px){
+@media screen and (min-width: 888px) and (max-width: 1145px){
   .productGrid{
     grid-template-columns: repeat(1, 1fr) !important;
     /* column-width: 20px; */
@@ -31,7 +31,7 @@ body{
 
 }
 
-@media screen and (min-width: 1086px) and (max-width: 1452px){
+@media screen and (min-width: 1146px) and (max-width: 1524px){
   .productGrid{
     grid-template-columns: repeat(2, 2fr) !important;
     gap: 0 !important;
@@ -44,8 +44,8 @@ body{
 }
 
 @media screen
-  and (min-width: 1452px)
-  and (max-width: 1741px){
+  and (min-width: 1525px)
+  and (max-width: 1848px){
     .productGrid{
       grid-template-columns: repeat(3, 3fr) !important;
       gap: 0 !important;
@@ -76,18 +76,26 @@ body{
   row-gap: 20px;
   justify-items: center;
   background-color: white;
-  padding-bottom: 20px;
+  /* padding-bottom: 20px; */
+  padding-bottom: 4rem;
+  padding-top: 1em;
+  border-radius: 5px;
 }
 
 .productTile{
   /* border: 1px solid ; */
   width: 350px;
   width: 350px;
+  border: 1px solid rgb(236, 236, 236);
+  border-radius: 4px;
+  padding: .5em;
+  margin-top: .5em;
   /* align-self: center; */
 }
 
 .productTile:hover{
   cursor: pointer;
+  box-shadow: 0 0 4px rgb(173, 173, 173);
 }
 
 .tileImageContainer{

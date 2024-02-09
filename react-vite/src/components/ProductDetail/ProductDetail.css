@@ -17,6 +17,11 @@
 
 }
 
+#topAvgRevs{
+  display: flex;
+  align-items: center;
+}
+
 
 #productDetailsName{
   font-size: 32px;

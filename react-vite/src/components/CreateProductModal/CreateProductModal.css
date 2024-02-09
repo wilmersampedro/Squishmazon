@@ -108,3 +108,13 @@ input[type=file] {
   top: 1.22em;
   width: min-content;
 }
+
+.charLimitDiv{
+  font-size: 11px;
+
+}
+
+.overCharLimit{
+  font-size: 11px;
+  color: red;
+}
