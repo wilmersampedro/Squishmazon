@@ -54,7 +54,7 @@ def create_product():
     db.session.commit()
     return new_product.to_dict(), 201
   else:
-    return form.errors, 401
+    return {"errors": form.errors}, 401
 
 
 #EDIT PRODUCT
