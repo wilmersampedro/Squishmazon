@@ -17,6 +17,19 @@ function SignupFormModal() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const errs = {};
+    if(!firstName) errs.firstName = "Please provide a first name"
+    if(firstName.length > 40) errs.firstName = "First name cannot be more than 40 characters"
+    if(!lastName) errs.lastName = "Please provide a last name"
+    if(lastName.length > 40) errs.lastName = "Last name cannot be more than 40 characters"
+    if(!email) errs.email = "Please provide an email"
+    if(email.length > 320) errs.email = "Please provide a valid email"
+    if(!address) errs.address = "Please provide an address"
+    if(!address.length > 50) errs.address = "Address cannot be more than 50 characters"
+    if(!password) errs.password = "Please provide a password"
+    if(!password.length > 64) errs.password = "Password must be less than 64 characters"
+    if(!confirmPassword) errs.confirmPassword = "Please confirm password"
+    // if(!password.length > 64) errs.password = "Password must be less than 64 characters"
 
     if (password !== confirmPassword) {
       return setErrors({
@@ -24,6 +37,8 @@ function SignupFormModal() {
           "Confirm Password field must be the same as the Password field",
       });
     }
+
+    if(Object.keys(errors).length) return setErrors(errs)
 
     const serverResponse = await dispatch(
       thunkSignup({
@@ -45,7 +60,9 @@ function SignupFormModal() {
   return (
     <>
       <h1>Sign Up</h1>
-      {errors.server && <p>{errors.server}</p>}
+      {/* <div className="form-errors">
+            {Object.values(errors)}
+          </div> */}
       <form onSubmit={handleSubmit}>
         <div className="inputFields">
           <label>
@@ -54,13 +71,14 @@ function SignupFormModal() {
           <input
             type="text"
             minLength="2"
-            maxLength="40"
+            // maxLength="40"
             value={firstName}
             onChange={(e) => setFirstName(e.target.value)}
             required
           />
+          <div className={firstName.length > 40 ? "overCharLimit" : "charLimitDiv"} >{firstName.length}/40</div>
           <div className="form-errors">
-            {errors.firstName}
+            {errors.firstName}{errors.first_name}
           </div>
         </div>
         <div className="inputFields">
@@ -70,13 +88,14 @@ function SignupFormModal() {
           <input
             type="text"
             minLength="2"
-            maxLength="40"
+            // maxLength="40"
             value={lastName}
             onChange={(e) => setLastName(e.target.value)}
             required
           />
+          <div className={lastName.length > 40 ? "overCharLimit" : "charLimitDiv"} >{lastName.length}/40</div>
           <div className="form-errors">
-            {errors.lastName}
+            {errors.lastName}{errors.last_name}
           </div>
         </div>
         <div className="inputFields">
@@ -89,7 +108,9 @@ function SignupFormModal() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
+            // maxLength="320"
           />
+          <div className={email.length > 320 ? "overCharLimit" : "charLimitDiv"} >{email.length}/320</div>
           <div className="form-errors">
             {errors.email}
           </div>
@@ -100,10 +121,12 @@ function SignupFormModal() {
           </label>
           <input
             type="text"
+            // maxLength="50"
             value={address}
             onChange={(e) => setAddress(e.target.value)}
             required
           />
+          <div className={address.length > 50 ? "overCharLimit" : "charLimitDiv"} >{address.length}/50</div>
           <div className="form-errors">
             {errors.address}
           </div>
@@ -118,7 +141,10 @@ function SignupFormModal() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
+            minLength="8"
+            // maxLength="64"
           />
+          <div className={password.length > 64 ? "overCharLimit" : "charLimitDiv"} >{password.length}/64</div>
           <div className="form-errors">
             {errors.password}
           </div>
@@ -133,7 +159,10 @@ function SignupFormModal() {
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
             required
+            minLength="8"
+            // maxLength="64"
           />
+          <div className={confirmPassword.length > 64 ? "overCharLimit" : "charLimitDiv"} >{confirmPassword.length}/64</div>
           <div className="form-errors">
             {errors.confirmPassword}
           </div>

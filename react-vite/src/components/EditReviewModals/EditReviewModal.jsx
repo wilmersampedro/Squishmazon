@@ -75,9 +75,10 @@ function EditReviewModal({ review }) {
             placeholder="What did you like or dislike? Leave your review here..."
             rows="7"
             cols="50"
-            maxLength="350"
+            // maxLength="350"
             onChange={(e) => setReviewText(e.target.value)}
           />
+          <div className={reviewText.length > 350 ? "overCharLimit" : "charLimitDiv"} >{reviewText.length}/350</div>
           <div className="form-errors">
           {errors.reviewText}
         </div>

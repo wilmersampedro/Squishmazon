@@ -25,8 +25,8 @@ function CreateProductModal() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const errs = {}
-    if (productName > 128) errs.productName = "Name must be less than 128 character"
-    if (description > 350) errs.description = "Description must be less than 350 character"
+    if (productName.length > 128) errs.productName = "Name must be less than 128 characters"
+    if (description.length > 350) errs.description = "Description must be less than 350 characters"
     if (!productName) errs.productName = "Please include a name for your 'mallow"
     if (!description) errs.description = "Please include a description for your 'mallow"
     if (!price) errs.price = "Please set a price for your 'mallow"
@@ -50,7 +50,9 @@ function CreateProductModal() {
 
     const newProduct = await dispatch(thunkCreateProduct(body));
     if (newProduct.errors) {
+      console.log("RESPONSE IN COMPONENT: ", newProduct)
       setErrors({ ...newProduct.errors, ...errors })
+      console.log("🚀 ~ handleSubmit ~ errors:", errors)
       return errors
     } else {
 
@@ -111,10 +113,10 @@ function CreateProductModal() {
           </label>
           <span className="form-errors">{errors.image}</span>
           <div id="thumbnailContainer">
-          {imageURL && <img src={imageURL} alt="thumbnail" id="thumbnailImg" />}
-          {!imageURL && <div id="noThumbnail">No file chosen</div> }
-          {/* <span id="fileName">{file.name ? file.name : "No file chosen"}</span> */}
-          {/* <div className="form-errors">
+            {imageURL && <img src={imageURL} alt="thumbnail" id="thumbnailImg" />}
+            {!imageURL && <div id="noThumbnail">No file chosen</div>}
+            {/* <span id="fileName">{file.name ? file.name : "No file chosen"}</span> */}
+            {/* <div className="form-errors">
             {errors.image}
           </div> */}
           </div>
@@ -130,8 +132,10 @@ function CreateProductModal() {
             placeholder="What's your `malllow's name?"
             onChange={(e) => setProductName(e.target.value)}
           />
+          <div className={productName.length > 128 ? "overCharLimit" : "charLimitDiv"} >{productName.length}/128</div>
+
           <div className="form-errors">
-            {errors.productName}
+            {errors.productName}{errors.product_name}
           </div>
         </div>
         <div id="descInputContainer">
@@ -146,6 +150,7 @@ function CreateProductModal() {
             cols="50"
             onChange={(e) => setDescription(e.target.value)}
           />
+          <div className={description.length > 350 ? "overCharLimit" : "charLimitDiv"} >{description.length}/350</div>
           <div className="form-errors">
             {errors.description}
           </div>
@@ -158,6 +163,7 @@ function CreateProductModal() {
           <input
             type="number"
             name="price"
+            min="0"
             placeholder="Enter value in USD"
             value={price}
             step=".01"
@@ -171,7 +177,7 @@ function CreateProductModal() {
         <div id="submitModalBtns">
           <div id="cancelBtn" onClick={closeModal}>Cancel</div>
           <button type="submit">Submit</button>
-          {(imageLoading) && <p>Loading...</p>}
+          {(imageLoading && !Object.keys(errors).length) && <p>Loading...</p>}
         </div>
       </form>
     </>
