@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
-import { thunkCreateReview } from "../../redux/review";
+import { thunkCreateReview, thunkFetchReviews } from "../../redux/review";
 import './CreateReviewModal.css'
+import { thunkFetchOneProduct } from "../../redux/product";
 
 function CreateReviewModal({ product }) {
   const dispatch = useDispatch();
@@ -15,8 +16,10 @@ function CreateReviewModal({ product }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     const errs = {};
-    if (reviewText.length > 350) errs.reviewText = "Review text must be less than 350 characters"
+    if (reviewText.length > 350) errs.reviewText = "Please enter at most 350 characters"
+    if (!reviewText.length) errs.reviewText = "Please include a written review"
     if (stars < 1 || stars > 5) errs.stars = "Star rating must be between 1-5"
+    if (!stars) errs.stars = "Please select a star rating"
     if (Object.keys(errs).length) return setErrors(errs)
 
     const body = {
@@ -25,6 +28,7 @@ function CreateReviewModal({ product }) {
     }
 
     dispatch(thunkCreateReview(product.id, body))
+
     closeModal()
   }
 
@@ -34,20 +38,9 @@ function CreateReviewModal({ product }) {
 
   return (
     <>
-      <div id="editModalTitle">Post your review</div>
+      <div id="editModalTitle">Create Review</div>
       <form onSubmit={handleSubmit} >
-        <div>
-          <label htmlFor="reviewText">
-            Review
-          </label>
-          <textarea
-            name="reviewText"
-            value={reviewText}
-            placeholder="Leave your review here..."
-            onChange={(e) => setReviewText(e.target.value)}
-          />
-        </div>
-
+        <div id="overallRating">Overall Rating</div>
         <div id="stars-container" onMouseLeave={() => { setActiveRating(stars) }}>
           <div value={1} onClick={() => onChange(1)} onMouseEnter={() => setActiveRating(1)} className={activeRating >= 1 ? 'filled' : 'empty'}>
             <i className="fa-solid fa-star"></i>
@@ -65,8 +58,33 @@ function CreateReviewModal({ product }) {
             <i className="fa-solid fa-star"></i>
           </div>
         </div>
-        <div>
-          <div onClick={closeModal}>Cancel</div>
+        <div className="form-errors">
+          {errors.stars}
+        </div>
+
+        <div id="reviewTextContainer">
+          <label htmlFor="reviewText">
+            Add a written review
+          </label>
+
+          <textarea
+            id="reviewTxt"
+            name="reviewText"
+            value={reviewText}
+            placeholder="What did you like or dislike? Leave your review here..."
+            rows="7"
+            cols="50"
+            // maxLength="350"
+            onChange={(e) => setReviewText(e.target.value)}
+          />
+          <div className={reviewText.length > 350 ? "overCharLimit" : "charLimitDiv"} >{reviewText.length}/350</div>
+          <div className="form-errors">
+            {errors.reviewText}
+          </div>
+        </div>
+        <br />
+        <div id="submitModalBtns">
+          <div id="cancelBtn" onClick={closeModal}>Cancel</div>
           <input type="submit" />
         </div>
       </form>

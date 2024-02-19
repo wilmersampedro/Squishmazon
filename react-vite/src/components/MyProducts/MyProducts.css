@@ -1,0 +1,58 @@
+#ManageCreateNewMallow{
+  /* position: relative; */
+  /* left: 9.5em; */
+   /* margin-top: 1em; */
+  margin-bottom: .5em;
+  border: 1px solid black;
+  width: fit-content;
+  padding: .7em;
+  border-radius: 7px;
+  background-color: rgb(173, 56, 173);
+  color: white;
+}
+
+#ManageCreateNewMallow:hover{
+  cursor: pointer;
+  background-color: var(--appPurp);
+}
+
+#manageProdsContainer{
+  display: flex;
+  flex-direction: column;
+  /* align-items: flex-start; */
+  margin-left: 140px;
+}
+
+@media screen and (max-width: 887px) {
+  .manageProdsContainer{
+      margin-left: 0 !important;
+      /* margin-right: 0; */
+      /* width: 100%; */
+  }
+}
+
+@media screen and (min-width: 888px) and (max-width: 1145px){
+  .manageProdsContainer{
+      margin-left: 15em !important;
+      /* margin-right: 15em !important; */
+  }
+}
+
+@media screen and (min-width: 1146px) and (max-width: 1524px){
+  .manageProdsContainer{
+    margin-left: 12em !important;
+  }
+
+}
+
+@media screen
+  and (min-width: 1525px)
+  and (max-width: 1848px){
+    .manageProdsContainer{
+      /* grid-template-columns: repeat(3, 3fr) !important; */
+      /* gap: 0 !important; */
+      /* width: min-content !important; */
+      margin-left: 200px !important;
+      /* margin-right: 10em !important; */
+    }
+}

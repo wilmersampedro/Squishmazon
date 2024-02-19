@@ -3,7 +3,7 @@
   font-size: 30px;
 }
 .filled {
-  color: gold
+  color: #FFBC00
 }
 
 .filled:hover{
@@ -11,5 +11,13 @@
 }
 
 .empty {
-  color: black
+  color: black;
+  color: rgb(214, 232, 238);
+  color: rgb(204, 227, 235)
+}
+
+#reviewTxt:focus{
+  border: 1px solid #FFBC00;
+  outline: #FFBC00 solid thin;
+  /* box-shadow: 1px 1px 1px 1px #FFBC00; */
 }

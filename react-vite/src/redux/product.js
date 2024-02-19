@@ -1,7 +1,8 @@
 import { csrfFetch } from "./csrf";
-const LOAD_PRODUCTS = "products/LOAD_PRODUCTS";
-const RECEIVE_PRODUCT = "products/RECEIVE_PRODUCT";
-const REMOVE_PRODUCT = "products/REMOVE_PRODUCT";
+const LOAD_PRODUCTS = 'products/LOAD_PRODUCTS'
+const RECEIVE_PRODUCT = 'products/RECEIVE_PRODUCT'
+const REMOVE_PRODUCT = 'products/REMOVE_PRODUCT'
+const RECEIVE_PRODUCT_IMAGE = 'products/RECEIVE_PRODUCT_IMAGE'
 
 const loadProducts = (products) => ({
   type: LOAD_PRODUCTS,
@@ -15,8 +16,14 @@ const receiveProduct = (product) => ({
 
 const removeProduct = (productId) => ({
   type: REMOVE_PRODUCT,
-  productId,
-});
+  productId
+})
+
+const receiveProductImage = (product, image) => ({
+  type:RECEIVE_PRODUCT_IMAGE,
+  product,
+  image
+})
 
 export const thunkFetchProducts = () => (dispatch) => {
   csrfFetch(`/api/products`)
@@ -55,19 +62,7 @@ export const thunkCreateProduct = (body) => async (dispatch) => {
     const errors = error.json();
     return errors;
   }
-
-  // csrfFetch(`/api/products/new`, {
-  //   method: "POST",
-  //   headers: {"Content-Type": "application/json"},
-  //   body: JSON.stringify(body)
-  // })
-  // .then(r => r.json())
-  // .then(d => {
-  //   dispatch(receiveProduct(d));
-  //   return d
-  // })
-  // .catch(console.error)
-};
+}
 
 export const thunkEditProduct = (productId, body, callback) => (dispatch) => {
   csrfFetch(`api/products/${productId}`, {
@@ -108,6 +103,15 @@ export const thunkCreateImage = (newProduct, post) => async (dispatch) => {
     console.log("There was an error making your post!");
   }
 };
+export const thunkUpdateImage = (product, image, body) => dispatch => {
+  fetch(`/api/product-images/${image.id}`, {
+    method: "PUT",
+    body
+  })
+  .then(r => r.json())
+  .then((d) => dispatch(receiveProductImage(product, d)))
+}
+
 
 const productReducer = (state = { product: {} }, action) => {
   switch (action.type) {
@@ -119,7 +123,11 @@ const productReducer = (state = { product: {} }, action) => {
       return productsState;
     }
     case RECEIVE_PRODUCT:
-      return { ...state, [action.product.id]: action.product };
+      return {...state, [action.product.id]: action.product}
+    case RECEIVE_PRODUCT_IMAGE:
+      const newState = {...state, [action.product.id]: action.product}
+      newState[action.product.id]["product_images"] = [...action.product.product_images, action.image]
+      return newState
     case REMOVE_PRODUCT: {
       const newState = { ...state };
       delete newState[action.productId];

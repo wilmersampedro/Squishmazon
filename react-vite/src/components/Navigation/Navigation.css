@@ -1,5 +1,109 @@
+body {
+  margin: 0;
+}
+
+:root{
+  --appPurp: #6E3778;
+  --appGold: #FFBC00;
+  --btnPurp: rgb(173, 56, 173);
+}
 .profile-dropdown {
   position: absolute;
   background-color: white;
   border: 1px solid black;
+  right: 126px;
+  top: 72px;
+  color: black;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  padding: 1em;
+  border-radius: 5px;
+}
+
+#accountInfo:hover{
+  cursor: pointer;
+
+}
+
+#homeLogo{
+  height: 70px;
+}
+
+#navHeaderContainer{
+  /* margin: 0px 20px 0px 20px; */
+  padding-left: 20px;
+  padding-right: 40px;
+  border-bottom: 1px solid black;
+  margin-top: 20px;
+  margin: 0;
+  margin-bottom: 20px;
+  background-color: var(--appPurp);
+  color: white;
+  padding-top: 1px;
+}
+
+#navHeader{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+#navHeader>li {
+  text-decoration: none;
+  list-style: none;
+}
+
+#downArrow{
+  margin: 3px 0 0 5px;
+  color: #A7ACB2;
+  /* align-items: center; */
+}
+
+#accountInfo{
+  padding-right: 100px;
+}
+
+#manageLink{
+  text-decoration: none;
+  color: black;
+}
+
+#manageLink:hover{
+  cursor: pointer;
+  color: #FFBC00;
+  text-decoration: underline;
+}
+
+#CreateNewMallow:hover{
+  cursor: pointer;
+  color: #FFBC00;
+  text-decoration: underline;
+}
+
+#logoutBtn:hover{
+  cursor: pointer;
+  color: #FFBC00;
+  text-decoration: underline;
+  /* align-content: center;
+  justify-self: center;
+  font-size: 14px; */
+  /* width: 300px; */
+  /* border: 1px solid lightgray;
+  height: 30px;
+  padding: 3px 6px;
+  border-radius: 7px;
+  background: rgb(143, 46, 143);
+  color: white; */
+  /* box-shadow: 2px 2px 2px 2px lightgray; */
+  /* margin-bottom: 40px; */
+}
+
+#logoutBtn:hover{
+  cursor: pointer;
+}
+
+.authBtns:hover{
+  cursor: pointer;
+  color: #FFBC00;
+  text-decoration: underline;
 }

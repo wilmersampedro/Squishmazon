@@ -11,22 +11,29 @@ function CreateProductModal() {
   const { closeModal } = useModal();
   const [productName, setProductName] = useState("");
   const [description, setDescription] = useState("");
-  const [price, setPrice] = useState(0);
+  const [price, setPrice] = useState(null);
   const [image, setImage] = useState(null);
   const [imageLoading, setImageLoading] = useState(false);
   const [errors, setErrors] = useState({});
+
+  const [file, setFile] = useState("")
+  const [fileName, setFilename] = useState("")
+  const [imageURL, setImageURL] = useState("")
+  const [optional, setOptional] = useState("")
 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const errs = {}
-    if(productName > 128) errs.productName = "Name must be less than 128 character"
-    if(description > 350) errs.description = "Description must be less than 350 character"
-
-    if(!image) {
-      errs.image = "At least one image is required to create new `mallow"
-      setErrors(errs)
-      return errors
+    if (productName.length > 128) errs.productName = "Name must be less than 128 characters"
+    if (description.length > 350) errs.description = "Description must be less than 350 characters"
+    if (!productName) errs.productName = "Please include a name for your 'mallow"
+    if (!description) errs.description = "Please include a description for your 'mallow"
+    if (!price) errs.price = "Please set a price for your 'mallow"
+    if (!image) {
+      errs.image = "Please upload an image to create a new 'mallow"
+      // setErrors(errs)
+      // return errors
     }
 
     if (Object.keys(errs).length) {
@@ -42,8 +49,10 @@ function CreateProductModal() {
     }
 
     const newProduct = await dispatch(thunkCreateProduct(body));
-    if(newProduct.errors) {
-      setErrors({...newProduct.errors, ...errors})
+    if (newProduct.errors) {
+      console.log("RESPONSE IN COMPONENT: ", newProduct)
+      setErrors({ ...newProduct.errors, ...errors })
+      console.log("🚀 ~ handleSubmit ~ errors:", errors)
       return errors
     } else {
 
@@ -66,19 +75,53 @@ function CreateProductModal() {
     }
   }
 
+  const fileWrap = (e) => {
+    e.stopPropagation();
+
+    const tempFile = e.target.files[0];
+
+    // Check for max image size of 5Mb
+    if (tempFile.size > 5000000) {
+      setFilename(maxFileError); // "Selected image exceeds the maximum file size of 5Mb"
+      return
+    }
+
+    const newImageURL = URL.createObjectURL(tempFile); // Generate a local URL to render the image file inside of the <img> tag.
+    setImageURL(newImageURL);
+    setFile(tempFile);
+    setFilename(tempFile.name);
+    setOptional("");
+  }
+
   return (
     <>
-    {Object.values(errors).length ? Object.values(errors).map((e) => <div>{e}</div>) : <div>no errors</div>}
-    <div id="createModalTitle">Create your 'mallow</div>
+      <div id="editModalTitle">Create your 'mallow</div>
       <form onSubmit={handleSubmit} encType="multipart/form-data">
-        <div>
-        <input
-              type="file"
-              accept="image/*"
-              onChange={(e) => setImage(e.target.files[0])}
-            />
+        <div id="uploadImgContainer">
+          Upload an image of your 'mallow
+          <input
+            id="fileUpload"
+            type="file"
+            accept="image/*"
+            onChange={(e) => {
+              fileWrap(e);
+              setImage(e.target.files[0])
+            }}
+          />
+          <label htmlFor="fileUpload" className="imgUpload">
+            Choose File
+          </label>
+          <span className="form-errors">{errors.image}</span>
+          <div id="thumbnailContainer">
+            {imageURL && <img src={imageURL} alt="thumbnail" id="thumbnailImg" />}
+            {!imageURL && <div id="noThumbnail">No file chosen</div>}
+            {/* <span id="fileName">{file.name ? file.name : "No file chosen"}</span> */}
+            {/* <div className="form-errors">
+            {errors.image}
+          </div> */}
+          </div>
         </div>
-        <div>
+        <div id="nameInputContainer">
           <label htmlFor="productName">
             Name
           </label>
@@ -89,35 +132,52 @@ function CreateProductModal() {
             placeholder="What's your `malllow's name?"
             onChange={(e) => setProductName(e.target.value)}
           />
+          <div className={productName.length > 128 ? "overCharLimit" : "charLimitDiv"} >{productName.length}/128</div>
+
+          <div className="form-errors">
+            {errors.productName}{errors.product_name}
+          </div>
         </div>
-        <div>
-        <label htmlFor="desc">
-          Description
-        </label>
-        <textarea
-        name="desc"
-        value={description}
-        placeholder="Describe your 'mallow"
-        rows="10"
-        cols="30"
-        onChange={(e) => setDescription(e.target.value)}
-        />
+        <div id="descInputContainer">
+          <label htmlFor="desc">
+            Description
+          </label>
+          <textarea
+            name="desc"
+            value={description}
+            placeholder="Describe your 'mallow"
+            rows="7"
+            cols="50"
+            onChange={(e) => setDescription(e.target.value)}
+          />
+          <div className={description.length > 350 ? "overCharLimit" : "charLimitDiv"} >{description.length}/350</div>
+          <div className="form-errors">
+            {errors.description}
+          </div>
         </div>
-        <div>
-        <label htmlFor="price">
-          Price
-        </label>
-        <input
-        type="number"
-        name="price"
-        value={price}
-        onChange={(e) => setPrice(e.target.value)}
-        />
+        <div id="priceInputContainer">
+          <label htmlFor="price">
+            Price
+          </label>
+          <span id="dollarSpan">$</span>
+          <input
+            type="number"
+            name="price"
+            min="0"
+            placeholder="Enter value in USD"
+            value={price}
+            step=".01"
+            onChange={(e) => setPrice(e.target.value)}
+          />
+          <div className="form-errors">
+            {errors.price}
+          </div>
         </div>
-        <div>
-          <div onClick={closeModal}>Cancel</div>
+        <br />
+        <div id="submitModalBtns">
+          <div id="cancelBtn" onClick={closeModal}>Cancel</div>
           <button type="submit">Submit</button>
-          {(imageLoading)&& <p>Loading...</p>}
+          {(imageLoading && !Object.keys(errors).length) && <p>Loading...</p>}
         </div>
       </form>
     </>
