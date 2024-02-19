@@ -47,66 +47,69 @@ function Navigation() {
   return (
     <div id="navHeaderContainer">
 
-    <ul id="navHeader">
-      <li>
-        <NavLink to="/" style={{"color": "white"}} ><img id="homeLogo"src="/homelogo.svg" alt="" /> </NavLink>
-      </li>
+      <ul id="navHeader">
+        <li>
+          <NavLink to="/" style={{ "color": "white" }} ><img id="homeLogo" src="/homelogo.svg" alt="" /> </NavLink>
+        </li>
 
-      <li id="accountInfo" onClick={toggleMenu} >
-        {user ?
-        <>
-        <div>
-        <span>Hello, {user?.first_name}</span>
-        </div>
-        <span>Account & Wish List</span>
-        </> :
-        <>
-        <div>
-          <span>Hello, sign in</span>
-        </div>
-        <span>Or sign up</span>
-        </>
-        }
-        <span id="downArrow"><i className="fa-solid fa-caret-down"></i></span>
-      </li>
-      {showMenu && (
-        <ul className={"profile-dropdown"} ref={ulRef}>
-          {user ? (
+        <li id="accountInfo" onClick={toggleMenu} >
+          {user ?
             <>
-              {/* <li>Hello, {user.first_name}</li>
+              <div>
+                <span>Hello, {user?.first_name}</span>
+              </div>
+              <span>Account & Wish List</span>
+            </> :
+            <>
+              <div>
+                <span>Hello, sign in</span>
+              </div>
+              <span>Or sign up</span>
+            </>
+          }
+          <span id="downArrow"><i className="fa-solid fa-caret-down"></i></span>
+        </li>
+        {showMenu && (
+          <ul className={"profile-dropdown"} ref={ulRef}>
+            {user ? (
+              <>
+                {/* <li>Hello, {user.first_name}</li>
               <li>{user.email}</li> */}
-              <li>
-                <NavLink to="/my-products" id="manageLink"onClick={closeMenu}>Manage my 'mallows</NavLink>
+                <li>
+                  <NavLink to="/my-products" id="manageLink" onClick={closeMenu}>Manage my 'mallows</NavLink>
                 </li>
-              <OpenModalMenuItem
-              itemText="Create new 'mallow"
-              onItemClick={closeMenu}
-              id="CreateNewMallow"
-              modalComponent={<CreateProductModal />}
-              />
-              <li>
-                <div id="logoutBtn"onClick={logout}>Sign Out</div>
-              </li>
-            </>
-          ) : (
-            <>
-              <OpenModalMenuItem
-                itemText="Log In"
-                className="authBtns"
-                onItemClick={closeMenu}
-                modalComponent={<LoginFormModal />}
-              />
-              <OpenModalMenuItem
-                itemText="Sign Up"
-                className="authBtns"
-                onItemClick={closeMenu}
-                modalComponent={<SignupFormModal />}
-              />
-            </>
-          )}
-        </ul>
-      )}
-    </ul>
+                <li>
+                  <NavLink to="/wishlist" onClick={closeMenu}>Wish List</NavLink>
+                </li>
+                <OpenModalMenuItem
+                  itemText="Create new 'mallow"
+                  onItemClick={closeMenu}
+                  id="CreateNewMallow"
+                  modalComponent={<CreateProductModal />}
+                />
+                <li>
+                  <div id="logoutBtn" onClick={logout}>Sign Out</div>
+                </li>
+              </>
+            ) : (
+              <>
+                <OpenModalMenuItem
+                  itemText="Log In"
+                  className="authBtns"
+                  onItemClick={closeMenu}
+                  modalComponent={<LoginFormModal />}
+                />
+                <OpenModalMenuItem
+                  itemText="Sign Up"
+                  className="authBtns"
+                  onItemClick={closeMenu}
+                  modalComponent={<SignupFormModal />}
+                />
+              </>
+            )}
+          </ul>
+        )}
+      </ul>
     </div>
   );
 }
