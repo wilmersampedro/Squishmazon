@@ -13,8 +13,7 @@
   margin-left: 30px;
   padding-top: 40px;
   padding-bottom: 80px;
-  padding-right: 360px;
-
+  /* padding-right: 360px; */
 }
 
 #topAvgRevs{
@@ -46,9 +45,13 @@
   letter-spacing: .5px;
   width: 680px;
   word-wrap: break-word;
-
 }
 
+#productCheckoutContainer {
+  border: 1px solid black;
+  margin-top: 3em;
+  padding: 1em;
+}
 
 /* REVIEWS */
 #reviewsSection{

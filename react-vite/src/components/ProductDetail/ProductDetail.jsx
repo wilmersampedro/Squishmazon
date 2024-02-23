@@ -18,31 +18,7 @@ function ProductDetail() {
   const reviews = useSelector((state) => state.review)
   const user = useSelector((state) => state.session.user)
 
-  const months = {
-    Jan: "January",
-    Feb: "February",
-    Mar: "March",
-    Apr: "April",
-    May: "May",
-    Jun: "June",
-    Jul: "July",
-    Aug: "August",
-    Sep: "September",
-    Oct: "October",
-    Nov: "November",
-    Dec: "December"
-  }
-  const dateFormatter = (date) => {
-    const splitDate = date.split(" ")
-    let day;
-    if (splitDate[1][0] == 0) {
-      day = splitDate[1][1]
-    } else {
-      day = splitDate[1]
-    }
-    const month = splitDate[2]
-    return  `${months[month]}, ${day} ${splitDate[3]}`
-  }
+
 
   useEffect(() => {
     dispatch(thunkFetchReviews(productId))
@@ -71,19 +47,22 @@ function ProductDetail() {
         <div id="productDetailsInner">
           <div id="productDetailsName">{product?.product_name}</div>
           <div id="topAvgRevs">
-          {product.avg_reviews}
-          <div className={product.avg_reviews == 5 || product.avg_reviews >= 4.8 ? "star-5" : product.avg_reviews < 4.8 && product.avg_reviews >= 4.3 ? "star-4-5" : product.avg_reviews < 4.3 && product.avg_reviews >= 3.8 ? "star-4" : product.avg_reviews < 3.8 && product.avg_reviews >= 3.3 ? "star-3-5" : product.avg_reviews < 3.3 && product.avg_reviews >= 2.8 ? "star-3" : product.avg_reviews < 2.8 && product.avg_reviews >= 2.3 ? "star-2-5" : product.avg_reviews < 2.3 && product.avg_reviews >= 1.8 ? "star-2" : product.avg_reviews < 1.8 && product.avg_reviews >= 1.3 ? "star-1-5" : product.avg_reviews < 1.3 && product.avg_reviews >= .8 ? "star-1" : product.avg_reviews < .8 && product.avg_reviews >= .3 ? "star-half" : "star-0"}><span className="numReviews">{product.num_reviews} {product.num_reviews == 1 ? "Review" : "Reviews"}</span> </div>
+            {product.avg_reviews}
+            <div className={product.avg_reviews == 5 || product.avg_reviews >= 4.8 ? "star-5" : product.avg_reviews < 4.8 && product.avg_reviews >= 4.3 ? "star-4-5" : product.avg_reviews < 4.3 && product.avg_reviews >= 3.8 ? "star-4" : product.avg_reviews < 3.8 && product.avg_reviews >= 3.3 ? "star-3-5" : product.avg_reviews < 3.3 && product.avg_reviews >= 2.8 ? "star-3" : product.avg_reviews < 2.8 && product.avg_reviews >= 2.3 ? "star-2-5" : product.avg_reviews < 2.3 && product.avg_reviews >= 1.8 ? "star-2" : product.avg_reviews < 1.8 && product.avg_reviews >= 1.3 ? "star-1-5" : product.avg_reviews < 1.3 && product.avg_reviews >= .8 ? "star-1" : product.avg_reviews < .8 && product.avg_reviews >= .3 ? "star-half" : "star-0"}><span className="numReviews">{product.num_reviews} {product.num_reviews == 1 ? "Review" : "Reviews"}</span> </div>
           </div>
           <div id="productDetailsPrice"><span id="productDetailPriceSpan">Price:</span> ${product?.price.toFixed(2)}</div>
           <div id="productDetailsInStock">{product?.in_stock && <i class="fa-solid fa-check" style={{ "color": "#33A3FF" }}></i>} {product?.in_stock ? 'In Stock!' : 'Out of Stock'}</div>
           <div id="productDetailsDescription">{product?.description}</div>
         </div>
+        <div id="productCheckoutContainer">
+        <div id="productDetailsPrice"><span id="productDetailPriceSpan"></span> ${product?.price.toFixed(2)}(${product?.price.toFixed(2)}/ Count)</div>
 
+        </div>
       </div>
       {/* <br /> */}
       <section id="reviewsSection">
         <div id="reviewSectionLeft">
-            <div id="reviewSectionLeftHeader">Customer reviews</div>
+          <div id="reviewSectionLeftHeader">Customer reviews</div>
           <div id="reviewSectionStars">
             <div className={product.avg_reviews == 5 || product.avg_reviews >= 4.8 ? "star-5" : product.avg_reviews < 4.8 && product.avg_reviews >= 4.3 ? "star-4-5" : product.avg_reviews < 4.3 && product.avg_reviews >= 3.8 ? "star-4" : product.avg_reviews < 3.8 && product.avg_reviews >= 3.3 ? "star-3-5" : product.avg_reviews < 3.3 && product.avg_reviews >= 2.8 ? "star-3" : product.avg_reviews < 2.8 && product.avg_reviews >= 2.3 ? "star-2-5" : product.avg_reviews < 2.3 && product.avg_reviews >= 1.8 ? "star-2" : product.avg_reviews < 1.8 && product.avg_reviews >= 1.3 ? "star-1-5" : product.avg_reviews < 1.3 && product.avg_reviews >= .8 ? "star-1" : product.avg_reviews < .8 && product.avg_reviews >= .3 ? "star-half" : "star-0"}><span className="revSecAvg">{product.avg_reviews} out of 5</span> </div>
           </div>
@@ -91,14 +70,14 @@ function ProductDetail() {
           <br />
           <div>
             {(user && product?.vendor_id !== user.id && existingReviewCheck(user.id) === false) &&
-            <>
-            <div id="revPromptLeft">Review this product</div>
-            <div id="revPromptL2">Share your thoughts with other customers</div>
-            <OpenModalButton
-              id="postRevBtn"
-              buttonText="Write a customer review"
-              modalComponent={<CreateReviewModal product={product} />}
-              />
+              <>
+                <div id="revPromptLeft">Review this product</div>
+                <div id="revPromptL2">Share your thoughts with other customers</div>
+                <OpenModalButton
+                  id="postRevBtn"
+                  buttonText="Write a customer review"
+                  modalComponent={<CreateReviewModal product={product} />}
+                />
               </>}
           </div>
         </div>
@@ -109,41 +88,67 @@ function ProductDetail() {
             return reviewsToDisplay.length ?
               <div id="productReviewsSection"><span id="customersSay">Customers say</span>
                 {reviewsToDisplay.map(r =>
-                <div
-                  key={r.id}
-                >
-                  <br />
-                  <div>{r?.author["first_name"]} {r?.author["last_name"]}</div>
-                  <div className={r.stars == 5 ? "star-5" : r.stars == 4 ? "star-4" : r.stars == 3 ? "star-3" : r.stars == 2 ? "star-2" : r.stars == 1 ? "star-1" : "star-0"}></div>
+                  <div
+                    key={r.id}
+                  >
+                    <br />
+                    <div>{r?.author["first_name"]} {r?.author["last_name"]}</div>
+                    <div className={r.stars == 5 ? "star-5" : r.stars == 4 ? "star-4" : r.stars == 3 ? "star-3" : r.stars == 2 ? "star-2" : r.stars == 1 ? "star-1" : "star-0"}></div>
 
-                  <div>Reviewed on: {dateFormatter(r?.created_at)}</div>
-                  <div id="reviewText">{r?.review_text}</div>
-                  <div id="revBtnContainer">
-                  {r?.user_id == user?.id && <OpenModalButton
-                    id="editRevBtn"
-                    buttonText="Edit"
-                    modalComponent={<EditReviewModal review={r} />}
-                    onClick={(e) => {
-                      e.stopPropagation()
-                    }}
+                    <div>Reviewed on: {dateFormatter(r?.created_at)}</div>
+                    <div id="reviewText">{r?.review_text}</div>
+                    <div id="revBtnContainer">
+                      {r?.user_id == user?.id && <OpenModalButton
+                        id="editRevBtn"
+                        buttonText="Edit"
+                        modalComponent={<EditReviewModal review={r} />}
+                        onClick={(e) => {
+                          e.stopPropagation()
+                        }}
 
-                    />}
-                  {r?.user_id == user?.id && <OpenModalButton
-                    id="deleteRevBtn"
-                    buttonText="Delete"
-                    modalComponent={<DeleteReviewModal review={r} />}
-                    />}
+                      />}
+                      {r?.user_id == user?.id && <OpenModalButton
+                        id="deleteRevBtn"
+                        buttonText="Delete"
+                        modalComponent={<DeleteReviewModal review={r} />}
+                      />}
                     </div>
-                </div>)}
+                  </div>)}
               </div> :
               <div>
-                {user?.id == product?.vendor_id ? <h2>No reviews yet!</h2>  : <h2>Be the first to post a review!</h2>}
+                {user?.id == product?.vendor_id ? <h2>No reviews yet!</h2> : <h2>Be the first to post a review!</h2>}
               </div>
           })()}
         </div>
       </section>
     </>
   )
+}
+
+const months = {
+  Jan: "January",
+  Feb: "February",
+  Mar: "March",
+  Apr: "April",
+  May: "May",
+  Jun: "June",
+  Jul: "July",
+  Aug: "August",
+  Sep: "September",
+  Oct: "October",
+  Nov: "November",
+  Dec: "December"
+}
+const dateFormatter = (date) => {
+  const splitDate = date.split(" ")
+  let day;
+  if (splitDate[1][0] == 0) {
+    day = splitDate[1][1]
+  } else {
+    day = splitDate[1]
+  }
+  const month = splitDate[2]
+  return `${months[month]}, ${day} ${splitDate[3]}`
 }
 
 export default ProductDetail;
