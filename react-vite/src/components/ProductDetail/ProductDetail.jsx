@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useParams } from 'react-router-dom';
@@ -17,6 +17,29 @@ function ProductDetail() {
   const product = useSelector((state) => state.product[productId])
   const reviews = useSelector((state) => state.review)
   const user = useSelector((state) => state.session.user)
+  const [showMenu, setShowMenu] = useState(false);
+  const ulRef = useRef();
+
+  const toggleMenu = (e) => {
+    e.stopPropagation(); // Keep from bubbling up to document and triggering closeMenu
+    setShowMenu(!showMenu);
+  };
+
+  const closeMenu = () => setShowMenu(false);
+
+  useEffect(() => {
+    if (!showMenu) return;
+
+    const closeMenu = (e) => {
+      if (ulRef.current && !ulRef.current.contains(e.target)) {
+        setShowMenu(false);
+      }
+    };
+
+    document.addEventListener("click", closeMenu);
+
+    return () => document.removeEventListener("click", closeMenu);
+  }, [showMenu]);
 
 
 
@@ -55,8 +78,23 @@ function ProductDetail() {
           <div id="productDetailsDescription">{product?.description}</div>
         </div>
         <div id="productCheckoutContainer">
-        <div id="productDetailsPrice"><span id="productDetailPriceSpan"></span> ${product?.price.toFixed(2)}(${product?.price.toFixed(2)}/ Count)</div>
-
+          <div id="productDetailsPrice"><span id="productDetailPriceSpan"></span> ${product?.price.toFixed(2)}(${product?.price.toFixed(2)}/ Count)</div>
+          <div>
+            <i class="fa-solid fa-check" style={{ "color": "#33A3FF" }}></i><span style={{ "color": "#1BA1FF", "fontWeight": "bold" }}>prime</span> One-Day
+          </div>
+          <div className="returnDiv" onClick={toggleMenu}>
+            FREE returns <i class="fa-solid fa-caret-down"></i>
+            {showMenu && (
+              <div className="return-dropdown" ref={ulRef}>
+                <div>Return this item for free</div>
+                <div>Free returns are available for the shipping address you chose. You can return the item for any reason in new and unused condition: no shipping charges</div>
+              </div>
+            )}
+          </div>
+          <div className="deliveryAnnouncement">FREE delivery <span style={{"fontWeight": "bold"}}>Tomorrow.</span> Order Now!</div>
+          <div className="deliveringMessage">
+          <i class="fa-solid fa-location-dot"></i> {user ? `Deliver to ${user?.first_name}` : "Delivering to your city!"}
+          </div>
         </div>
       </div>
       {/* <br /> */}

@@ -1,3 +1,7 @@
+:root{
+  --app-gold: #FFBC00;
+}
+
 #productDetailContainer {
   display: flex;
   margin-left: 140px;
@@ -48,9 +52,43 @@
 }
 
 #productCheckoutContainer {
+  border: 1px solid lightgray;
+  margin-top: 3rem;
+  padding: 1rem;
+  margin-right: 1rem;
+  width: 16rem;
+}
+
+.returnDiv{
+  color: #007185;
+}
+
+.returnDiv:hover{
+  cursor: pointer;
+  color: var(--app-gold);
+}
+
+.return-dropdown{
+  position: absolute;
+  background-color: white;
   border: 1px solid black;
-  margin-top: 3em;
+  right: 12rem;
+  top: 280px;
+  color: black;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
   padding: 1em;
+  border-radius: 5px;
+  width: 14rem;
+}
+
+.deliveryAnnouncement{
+  padding-top: 1.5rem;
+}
+
+.deliveringMessage{
+  color: #007185
 }
 
 /* REVIEWS */
