@@ -61,6 +61,7 @@
 
 .returnDiv{
   color: #007185;
+  font-size: 14px;
 }
 
 .returnDiv:hover{
@@ -71,7 +72,7 @@
 .return-dropdown{
   position: absolute;
   background-color: white;
-  border: 1px solid black;
+  border: 1px solid lightgray;
   right: 12rem;
   top: 280px;
   color: black;
@@ -81,6 +82,11 @@
   padding: 1em;
   border-radius: 5px;
   width: 14rem;
+  box-shadow: 1px 1px 1px 1px gray;
+}
+
+.return-dropdown > div:first-child{
+  font-weight: bold;
 }
 
 .deliveryAnnouncement{
@@ -88,7 +94,8 @@
 }
 
 .deliveringMessage{
-  color: #007185
+  color: #007185;
+  font-size: 14px;
 }
 
 /* REVIEWS */
