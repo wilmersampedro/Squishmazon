@@ -91,9 +91,28 @@ function ProductDetail() {
               </div>
             )}
           </div>
-          <div className="deliveryAnnouncement">FREE delivery <span style={{"fontWeight": "bold"}}>Tomorrow.</span> Order Now!</div>
+          <div className="deliveryAnnouncement">FREE delivery <span style={{ "fontWeight": "bold" }}>Tomorrow.</span> Order Now!</div>
           <div className="deliveringMessage">
-          <i class="fa-solid fa-location-dot"></i> {user ? `Deliver to ${user?.first_name}` : "Delivering to your city!"}
+            <i class="fa-solid fa-location-dot"></i> {user ? `Deliver to ${user?.first_name}` : "Delivering to your city!"}
+          </div>
+          <div className="checkoutInStock">
+            {product?.in_stock ? 'In Stock' : 'Out of Stock'}
+          </div>
+          <div className="quantitySelect">
+            {/* <span>Quantity: </span> */}
+            <label for="quantity">Quantity: </label>
+              <select id="quantityMenu" name="quantity" class="product-select" tabindex="1">
+                <option class="list" value="1" >1</option>
+                <option class="list" value="2" >2</option>
+                <option class="list" value="3" >3</option>
+                <option class="list" value="4" >4</option>
+                <option class="list" value="5" >5</option>
+                <option class="list" value="6" >6</option>
+                <option class="list" value="7" >7</option>
+                <option class="list" value="8" >8</option>
+                <option class="list" value="9" >9</option>
+                <option class="list" value="10" >10</option>
+              </select>
           </div>
         </div>
       </div>

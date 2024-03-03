@@ -96,7 +96,39 @@
 .deliveringMessage{
   color: #007185;
   font-size: 14px;
+  margin-top: .5rem;
+  margin-bottom: .5rem;
 }
+
+.checkoutInStock{
+  font-size: 18px;
+  color: #007600;
+}
+
+.quantitySelect>label{
+  position: relative;
+  top: 1.44rem;
+  left: .5rem;
+  font-size: 13px;
+}
+
+#quantityMenu{
+  width: 180px;
+  /* text-align: center; */
+  padding-left: 4rem;
+  height: 1.8rem;
+  border-radius: 5px;
+  font-size: 13px;
+  background-color: #f0f2f2;
+  box-shadow: 0 0 10px #f0f2f2;
+  box-shadow: 2px 2px 2px 2px #e0e0e0;
+}
+
+#quantityMenu:hover{
+  cursor: pointer;
+  background-color:  rgb(231, 231, 231);
+}
+
 
 /* REVIEWS */
 #reviewsSection{
