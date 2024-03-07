@@ -19,7 +19,7 @@ function MyProducts() {
   const sessionUser = useSelector((state) => state.session.user)
   const products = useSelector((state) => state.product)
   const prodArr = Object.values(products)
-  console.log("***********", prodArr)
+
 
 
   useEffect(() => {
@@ -40,7 +40,7 @@ function MyProducts() {
       </div>
         {(() => {
           let productsToDisplay = Object.values(products)
-          console.log(productsToDisplay)
+          
           return productsToDisplay.length ? <div className="productGrid">
             {productsToDisplay.map(p =>
               <div key={p.id}>

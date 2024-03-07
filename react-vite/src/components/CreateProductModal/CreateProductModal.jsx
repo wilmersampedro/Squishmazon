@@ -50,9 +50,9 @@ function CreateProductModal() {
 
     const newProduct = await dispatch(thunkCreateProduct(body));
     if (newProduct.errors) {
-      console.log("RESPONSE IN COMPONENT: ", newProduct)
+
       setErrors({ ...newProduct.errors, ...errors })
-      console.log("🚀 ~ handleSubmit ~ errors:", errors)
+
       return errors
     } else {
 
@@ -62,12 +62,12 @@ function CreateProductModal() {
 
       const formData = new FormData();
       formData.append("image", image);
-      console.log("*** IN COMPONENT: ", formData)
+
       // aws uploads can be a bit slow-displaying
       // some sort of loading message is a good idea
       setImageLoading(true);
       const newImg = await dispatch(thunkCreateImage(newProduct, formData));
-      console.log("new image response? : ", newImg)
+      
       // history.push("/images");
       closeModal()
       dispatch(thunkFetchOneProduct(newProduct.id)) //this makes it so that the page doesn't break when making new prod?
