@@ -47,7 +47,7 @@ def remove_cart_item(id):
     return {"errors": {"message": "Cart Item not found"}}
 
   if cart_item.user_id == current_user.id:
-      print("*********", cart_item)
+      
       db.session.delete(cart_item)
       db.session.commit()
       return {"message": "Successfully deleted"}
