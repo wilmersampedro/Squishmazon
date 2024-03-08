@@ -29,7 +29,7 @@ def update_image(id):
       # if the dictionary doesn't have a url key
       # it means that there was an error when we tried to upload
       # so we send back that error message (and we printed it above)
-        print("URL NOT IN UPLOAD???????")
+
         return {"errors": upload}
       remove_file_from_s3(img.url)
       url = upload["url"]
@@ -39,7 +39,7 @@ def update_image(id):
       db.session.commit()
       return img.to_dict()
   else:
-    print("*************", form.errors)
+    
     return form.errors, 400
 
 @product_image_routes.route("/<int:id>", methods=["DELETE"])
