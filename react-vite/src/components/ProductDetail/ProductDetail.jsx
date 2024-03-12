@@ -114,6 +114,21 @@ function ProductDetail() {
                 <option class="list" value="10" >10</option>
               </select>
           </div>
+          <div className="productCheckoutBtnsContainer">
+              <div className="addToCartBtn">Add to Cart</div>
+              <div className="buyNowBtn">Buy Now</div>
+          </div>
+          <div className="productCheckoutBottom">
+              <div className="productCheckoutBottomLeft">
+                <p>Ships From</p>
+                <p>Ships From</p>
+                <p>Ships From</p>
+                <p>Ships From</p>
+              </div>
+              <div className="productCheckoutBottomRight">
+
+              </div>
+          </div>
         </div>
       </div>
       {/* <br /> */}
