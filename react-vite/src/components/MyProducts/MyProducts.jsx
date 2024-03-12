@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { thunkFetchMyProducts } from "../../redux/product";
 import OpenModalMenuItem from "../Navigation/OpenModalMenuItem";
 import OpenModalButton from "../OpenModalButton/OpenModalButton";
@@ -19,12 +19,16 @@ function MyProducts() {
   const sessionUser = useSelector((state) => state.session.user)
   const products = useSelector((state) => state.product)
   const prodArr = Object.values(products)
-  console.log("***********", prodArr)
+
+
 
 
   useEffect(() => {
     dispatch(thunkFetchMyProducts())
   }, [dispatch, hasUpdated])
+
+
+  if(!sessionUser) return <Navigate to="/"></Navigate>
 
   if (!prodArr[prodArr.length - 1]?.product_images) return <h2>No products yet!</h2>
 
@@ -40,7 +44,7 @@ function MyProducts() {
       </div>
         {(() => {
           let productsToDisplay = Object.values(products)
-          console.log(productsToDisplay)
+
           return productsToDisplay.length ? <div className="productGrid">
             {productsToDisplay.map(p =>
               <div key={p.id}>

@@ -96,13 +96,12 @@ export const thunkCreateImage = (newProduct, post) => async (dispatch) => {
 
 
   if (response.ok) {
-    console.log("IN THE OK BLOCK")
+
       const { resPost } = await response.json();
       dispatch(receiveProduct(newProduct));
   } else {
       const error = await response.json()
-      console.log("ERROR IN THUNK???????: ",error)
-      console.log("There was an error making your post!")
+      
   }
 }
 

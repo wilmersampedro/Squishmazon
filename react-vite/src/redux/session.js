@@ -30,7 +30,7 @@ export const thunkLogin = (credentials) => async dispatch => {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(credentials)
   });
-    console.log("🚀 ~ thunkLogin ~ credentials:", response)
+    
 
 
   if(response.ok) {
