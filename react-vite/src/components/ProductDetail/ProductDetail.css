@@ -1,5 +1,6 @@
 :root{
   --app-gold: #FFBC00;
+  --light-gray: #565959
 }
 
 #productDetailContainer {
@@ -177,7 +178,38 @@
   background-color:  rgb(231, 231, 231);
 }
 
+.productCheckoutBottom{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: .15rem;
+  width: 100%;
+  
+  /* height: min-content; */
+}
 
+.productCheckoutBottomLeft{
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+  line-height: 12px;
+}
+
+.productCheckoutBottomRight{
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+  line-height: 12px
+}
+
+.productCheckoutBottomLeft > p {
+  font-size: 12px;
+  margin: 0;
+  color: var(--light-gray);
+}
+
+.productCheckoutBottomRight > p {
+  margin: 0;
+  font-size: 12px;
+  /* color: var(--light-gray); */
+}
 
 
 /* REVIEWS */

@@ -31,7 +31,7 @@ def current_user_products():
 def single_product(id):
   product = Product.query.get(id)
   if product:
-    return product.to_dict()
+    return product.to_dict_with_owner()
   else:
     return {'errors': {'message': "Product Not Found"}}, 404
 

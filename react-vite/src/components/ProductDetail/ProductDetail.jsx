@@ -121,12 +121,17 @@ function ProductDetail() {
           <div className="productCheckoutBottom">
               <div className="productCheckoutBottomLeft">
                 <p>Ships From</p>
-                <p>Ships From</p>
-                <p>Ships From</p>
-                <p>Ships From</p>
+                <p>Sold by</p>
+                <p>Returns</p>
+                <p>Payment</p>
+                <p>Customer Service</p>
               </div>
               <div className="productCheckoutBottomRight">
-
+                <p>Squishmazon</p>
+                <p>{product?.owner?.first_name}</p>
+                <p>Eligible for Return, Refund, or Replacement...</p>
+                <p>Secure Payment</p>
+                <p>Squishmazon</p>
               </div>
           </div>
         </div>

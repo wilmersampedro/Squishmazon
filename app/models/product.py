@@ -60,3 +60,17 @@ class Product(db.Model):
             "created_at": self.created_at,
             "updated_at": self.updated_at,
         }
+
+    def to_dict_with_owner(self):
+        return {
+            "id": self.id,
+            "product_name": self.product_name,
+            "description": self.description,
+            "price": self.price,
+            "vendor_id": self.vendor_id,
+            "in_stock": self.in_stock,
+            "product_images": [img.to_dict() for img in self.product_image],
+            "avg_reviews": self.avg_rev(),
+            "num_reviews": len(self.product_review),
+            "owner": User.query.get(self.vendor_id).to_dict()
+        }
