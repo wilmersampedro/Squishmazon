@@ -183,7 +183,7 @@
   grid-template-columns: 1fr 1fr;
   column-gap: .15rem;
   width: 100%;
-  
+
   /* height: min-content; */
 }
 
@@ -211,6 +211,10 @@
   /* color: var(--light-gray); */
 }
 
+.fav:hover{
+  cursor: pointer;
+
+}
 
 /* REVIEWS */
 #reviewsSection{
@@ -335,4 +339,8 @@
 #deleteRevBtn:hover{
   cursor: pointer;
   background-color: rgb(240, 240, 240);
+}
+
+#customersSay{
+  font-weight: bold;
 }
