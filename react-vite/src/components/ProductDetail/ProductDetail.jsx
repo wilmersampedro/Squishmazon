@@ -41,7 +41,17 @@ function ProductDetail() {
     return () => document.removeEventListener("click", closeMenu);
   }, [showMenu]);
 
-
+  const sortedArr = Object.values(reviews).sort((rev1, rev2) => {
+    const date1 = new Date(rev1.createdAt);
+    const date2 = new Date(rev2.createdAt);
+    if (date1 < date2) {
+      return 1
+    } else if (date1 > date2) {
+      return -1
+    } else {
+      return 0
+    }
+  })
 
   useEffect(() => {
     dispatch(thunkFetchReviews(productId))
@@ -160,7 +170,7 @@ function ProductDetail() {
         </div>
         <div >
           {(() => {
-            let reviewsToDisplay = Object.values(reviews)
+            let reviewsToDisplay = Object.values(sortedArr)
 
             return reviewsToDisplay.length ?
               <div id="productReviewsSection"><span id="customersSay">Customers say</span>
