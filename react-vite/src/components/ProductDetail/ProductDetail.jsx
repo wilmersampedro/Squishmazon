@@ -9,6 +9,7 @@ import EditReviewModal from "../EditReviewModals";
 import './ProductDetail.css'
 import CreateReviewModal from "../CreateReviewModal/CreateReviewModal";
 import DeleteReviewModal from "../DeleteReviewModal/DeleteReviewModal";
+import BuyNowModal from "../BuyNowModal/BuyNowModal";
 
 function ProductDetail() {
   const dispatch = useDispatch()
@@ -126,7 +127,11 @@ function ProductDetail() {
           </div>
           <div className="productCheckoutBtnsContainer">
               <div className="addToCartBtn">Add to Cart</div>
-              <div className="buyNowBtn">Buy Now</div>
+              <OpenModalButton
+              id="buyNowBtn"
+              buttonText="Buy Now"
+              modalComponent={<BuyNowModal product={product}/>}
+              />
           </div>
           <div className="productCheckoutBottom">
               <div className="productCheckoutBottomLeft">
