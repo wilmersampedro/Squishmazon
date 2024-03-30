@@ -4,13 +4,16 @@ import { useModal } from "../../context/Modal";
 import './BuyNowModal.css'
 import { useNavigate } from "react-router-dom";
 
-function BuyNowModal() {
+function BuyNowModal({ product }) {
+  console.log("🚀 ~ BuyNowModal ~ product:", product)
 
   return (
     <>
-    <div>
-      Buy Now
-    </div>
+      <div className="buyNowModalContainer">
+        <div className="modalTopRow">
+          Buy Now: {product?.product_name}
+        </div>
+      </div>
     </>
   )
 }
