@@ -12,6 +12,9 @@ function BuyNowModal({ product }) {
       <div className="buyNowModalContainer">
         <div className="modalTopRow">
           Buy Now: {product?.product_name}
+          <div>
+          <i class="fa-solid fa-x"></i>
+          </div>
         </div>
       </div>
     </>
