@@ -18,6 +18,7 @@ function ProductDetail() {
   const product = useSelector((state) => state.product[productId])
   const reviews = useSelector((state) => state.review)
   const user = useSelector((state) => state.session.user)
+  const [favProd, setFavProd] = useState(false)
   const [showMenu, setShowMenu] = useState(false);
   const ulRef = useRef();
 
@@ -70,6 +71,10 @@ function ProductDetail() {
     return false;
   }
 
+  const handleFav = (product) => {
+
+  }
+
 
   if (!product || reviews.review || !product.product_images[0]?.url) return null
   return (
@@ -85,7 +90,7 @@ function ProductDetail() {
             <div className={product.avg_reviews == 5 || product.avg_reviews >= 4.8 ? "star-5" : product.avg_reviews < 4.8 && product.avg_reviews >= 4.3 ? "star-4-5" : product.avg_reviews < 4.3 && product.avg_reviews >= 3.8 ? "star-4" : product.avg_reviews < 3.8 && product.avg_reviews >= 3.3 ? "star-3-5" : product.avg_reviews < 3.3 && product.avg_reviews >= 2.8 ? "star-3" : product.avg_reviews < 2.8 && product.avg_reviews >= 2.3 ? "star-2-5" : product.avg_reviews < 2.3 && product.avg_reviews >= 1.8 ? "star-2" : product.avg_reviews < 1.8 && product.avg_reviews >= 1.3 ? "star-1-5" : product.avg_reviews < 1.3 && product.avg_reviews >= .8 ? "star-1" : product.avg_reviews < .8 && product.avg_reviews >= .3 ? "star-half" : "star-0"}><span className="numReviews">{product.num_reviews} {product.num_reviews == 1 ? "Review" : "Reviews"}</span> </div>
           </div>
           <div id="productDetailsPrice"><span id="productDetailPriceSpan">Price:</span> ${product?.price.toFixed(2)}</div>
-          <div id="productDetailsInStock">{product?.in_stock && <i class="fa-solid fa-check" style={{ "color": "#33A3FF" }}></i>} {product?.in_stock ? 'In Stock!' : 'Out of Stock'}</div>
+          <div id="productDetailsInStock">{product?.in_stock && <i class="fa-solid fa-check" onClick={handleFav} style={{ "color": "#33A3FF" }}></i>} {product?.in_stock ? 'In Stock!' : 'Out of Stock'}</div>
           <div id="productDetailsDescription">{product?.description}</div>
         </div>
         <div id="productCheckoutContainer">
