@@ -72,7 +72,8 @@ function ProductDetail() {
   }
 
   const handleFav = (product) => {
-
+    setFavProd(!favProd)
+    console.log(favProd)
   }
 
 
