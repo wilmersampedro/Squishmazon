@@ -1,5 +1,5 @@
 # Squishmazon
-- Check out a live version of Dissscord here: [Squishmazon](https://wilmazon.onrender.com/)
+- Check out a live version of Squishmazon here: [Squishmazon](https://wilmazon.onrender.com/)
 
 Full-stack e-commerce website where users can view products and leave reviews, inspired from Amazon.
 The backend was built using Flask and SQLAlchemy, and the frontend was built utilizing React.js.
